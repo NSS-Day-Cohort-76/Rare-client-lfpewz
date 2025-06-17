@@ -7,6 +7,7 @@ export const Login = ({ setToken }) => {
   const password = useRef()
   const navigate = useNavigate()
   const [isUnsuccessful, setisUnsuccessful] = useState(false)
+  //const [token, setTokenState] = useState(localStorage.getItem('auth_token')) // pls don't break
 
   const handleLogin = (e) => {
     e.preventDefault()
@@ -19,6 +20,8 @@ export const Login = ({ setToken }) => {
     loginUser(user).then(res => {
       if ("valid" in res && res.valid) {
         setToken(res.token)
+        const userId = parseInt(res.token.split("_").pop())
+        localStorage.setItem("rare_user_id", userId)
         navigate("/")
       }
       else {
