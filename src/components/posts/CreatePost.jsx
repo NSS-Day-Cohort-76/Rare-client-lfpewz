@@ -1,111 +1,82 @@
-export const CreatePost = () => {
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { createPost } from "../../managers/PostManager"
+
+export const CreatePost = ({ token }) => {
+  const navigate = useNavigate()
+
+  const [postData, setPostData] = useState({
+    title: "",
+    content: "",
+    image_url: "",
+    category_id: 1, // TEMP hardcoded category to get us moving
+  })
+
+  const handleChange = (event) => {
+    const { name, value } = event.target
+    setPostData((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+
+    createPost(postData, token)
+      .then(() => {
+        navigate("/posts") // Go back to post list after creating
+      })
+      .catch((err) => {
+        console.error("Error creating post:", err)
+        alert("Post failed. Check console.")
+      })
+  }
+
   return (
-    <form>
-      <div class="field">
-        <label class="label">Name</label>
-        <div class="control">
-          <input class="input" type="text" placeholder="Text input" />
-        </div>
+    <form onSubmit={handleSubmit}>
+      <h2>Create a New Post</h2>
+
+      <div>
+        <label htmlFor="title">Title</label>
+        <input
+          type="text"
+          name="title"
+          value={postData.title}
+          onChange={handleChange}
+          required
+        />
       </div>
 
-      <div class="field">
-        <label class="label">Username</label>
-        <div class="control has-icons-left has-icons-right">
-          <input
-            class="input is-success"
-            type="text"
-            placeholder="Text input"
-            value="bulma"
-          />
-          <span class="icon is-small is-left">
-            <i class="fas fa-user"></i>
-          </span>
-          <span class="icon is-small is-right">
-            <i class="fas fa-check"></i>
-          </span>
-        </div>
-        <p class="help is-success">This username is available</p>
+      <div>
+        <label htmlFor="content">Content</label>
+        <textarea
+          name="content"
+          value={postData.content}
+          onChange={handleChange}
+          required
+        />
       </div>
 
-      <div class="field">
-        <label class="label">Email</label>
-        <div class="control has-icons-left has-icons-right">
-          <input
-            class="input is-danger"
-            type="email"
-            placeholder="Email input"
-            value="hello@"
-          />
-          <span class="icon is-small is-left">
-            <i class="fas fa-envelope"></i>
-          </span>
-          <span class="icon is-small is-right">
-            <i class="fas fa-exclamation-triangle"></i>
-          </span>
-        </div>
-        <p class="help is-danger">This email is invalid</p>
+      <div>
+        <label htmlFor="image_url">Image URL</label>
+        <input
+          type="text"
+          name="image_url"
+          value={postData.image_url}
+          onChange={handleChange}
+        />
       </div>
 
-      <div class="field">
-        <label class="label">Message</label>
-        <div class="control">
-          <textarea class="textarea" placeholder="Textarea"></textarea>
-        </div>
+      <div>
+        <label htmlFor="category_id">Category ID</label>
+        <input
+          type="number"
+          name="category_id"
+          value={postData.category_id}
+          onChange={handleChange}
+          required
+        />
       </div>
 
-      <div class="field">
-        <label class="label">Subject</label>
-        <div class="control">
-          <div class="select">
-            <select>
-              <option>Select dropdown</option>
-              <option>With options</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="field">
-        <div class="control">
-          <label class="checkbox">
-            <input type="checkbox" />
-            ❤️
-          </label>
-        </div>
-      </div>
-      <div class="field">
-        <div class="control">
-          <label class="checkbox">
-            <input type="checkbox" />
-            😂
-          </label>
-        </div>
-      </div>
-      <div class="field">
-        <div class="control">
-          <label class="checkbox">
-            <input type="checkbox" />
-            🔥
-          </label>
-        </div>
-      </div>
-      <div class="field">
-        <div class="control">
-          <label class="checkbox">
-            <input type="checkbox" />
-            😭
-          </label>
-        </div>
-      </div>
-
-      <div class="field is-grouped">
-        <div class="control">
-          <button class="button is-link">Submit</button>
-        </div>
-        <div class="control">
-          <button class="button is-link is-light">Cancel</button>
-        </div>
-      </div>
+      <button type="submit">Submit Post</button>
     </form>
-  );
-};
+  )
+}
