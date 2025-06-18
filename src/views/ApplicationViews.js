@@ -3,6 +3,8 @@ import { Login } from "../components/auth/Login"
 import { Register } from "../components/auth/Register"
 import { Authorized } from "./Authorized"
 import { CreatePost } from "../components/posts/CreatePost.jsx"
+import { DisplayAllPosts } from "../components/posts/DisplayAllPosts.jsx"
+
 
 export const ApplicationViews = ({ token, setToken }) => {
   return <>
@@ -11,6 +13,7 @@ export const ApplicationViews = ({ token, setToken }) => {
       <Route path="/register" element={<Register setToken={setToken} />}  />
       <Route element={<Authorized token={token} />}>
         {/* Add Routes here */}
+        <Route path="all-posts" element={<DisplayAllPosts token={token} />} />
         <Route path="createpost" element={<CreatePost token={token} />} />
       </Route>
     </Routes>
