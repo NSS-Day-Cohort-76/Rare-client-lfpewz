@@ -1,9 +1,8 @@
-import { useRef } from "react"
-import { Link } from "react-router-dom"
-import { useNavigate } from "react-router-dom"
+import { useRef, useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
 import { registerUser } from "../../managers/AuthManager"
 
-export const Register = ({setToken}) => {
+export const Register = ({ setToken }) => {
   const firstName = useRef()
   const lastName = useRef()
   const email = useRef()
@@ -14,9 +13,11 @@ export const Register = ({setToken}) => {
   const passwordDialog = useRef()
   const navigate = useNavigate()
 
+  const [registerError, setRegisterError] = useState("") // 🔥 for backend error messages
+
   const handleRegister = (e) => {
     e.preventDefault()
-    
+
     if (password.current.value === verifyPassword.current.value) {
       const newUser = {
         username: username.current.value,
@@ -34,6 +35,14 @@ export const Register = ({setToken}) => {
             navigate("/")
           }
         })
+        .catch(err => {
+          // 👇 Show backend error (like duplicate username/email)
+          if (err.error) {
+            setRegisterError(err.error)
+          } else {
+            setRegisterError("Something went wrong. Please try again.")
+          }
+        })
     } else {
       passwordDialog.current.showModal()
     }
@@ -42,8 +51,14 @@ export const Register = ({setToken}) => {
   return (
     <section className="columns is-centered">
       <form className="column is-two-thirds" onSubmit={handleRegister}>
-      <h1 className="title">Rare Publishing</h1>
+        <h1 className="title">Rare Publishing</h1>
         <p className="subtitle">Create an account</p>
+
+        {/* 🔥 Display backend error if any */}
+        {registerError && (
+          <p className="help is-danger">{registerError}</p>
+        )}
+
         <div className="field">
           <label className="label">First Name</label>
           <div className="control">
@@ -105,6 +120,11 @@ export const Register = ({setToken}) => {
           </div>
         </div>
 
+        {/* Hidden dialog for password mismatch */}
+        <dialog className="dialog dialog--auth" ref={passwordDialog}>
+          <div>Password fields do not match</div>
+          <button className="button" onClick={() => passwordDialog.current.close()}>Close</button>
+        </dialog>
       </form>
     </section>
   )
