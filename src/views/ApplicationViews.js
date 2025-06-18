@@ -4,6 +4,7 @@ import { Register } from "../components/auth/Register"
 import { Authorized } from "./Authorized"
 import { CreatePost } from "../components/posts/CreatePost.jsx"
 import { PostDetails } from "../components/posts/PostDetails.jsx"
+import { EditPost } from "../components/posts/EditPost.jsx"
 
 export const ApplicationViews = ({ token, setToken }) => {
   return (
@@ -14,6 +15,7 @@ export const ApplicationViews = ({ token, setToken }) => {
         {/* Add Routes here */}
         <Route path="/createpost" element={<CreatePost token={token} />} />
         <Route path="/posts/:postId" element={<PostDetails />} />
+        <Route path="/posts/:postId/edit" element={<EditPost />} />
       </Route>
     </Routes>
   )
