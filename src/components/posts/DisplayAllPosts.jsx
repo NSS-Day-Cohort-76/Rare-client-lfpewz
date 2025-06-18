@@ -7,12 +7,9 @@ export const DisplayAllPosts = ({token}) => {
     const [allPosts, setAllPosts] = useState([]);
 
 useEffect(() => {
-  async function fetchPosts() {
-    const posts = await getAllPosts(token); // <-- Pass the token
-    setAllPosts(posts);
-  }
-  fetchPosts();
-}, [token]); // Include token in dependency array
+    getAllPosts().then(setAllPosts)
+     console.log("🔍 Posts received:"); // see what came back
+}, []);
 
 
   return (
@@ -24,6 +21,7 @@ useEffect(() => {
             <li key={post.id}>
               <h3>{post.title}</h3>
               <p>{post.category}</p>
+              <p>{post.user_id}</p>
             </li>
           ))}
         </ul>
