@@ -5,6 +5,7 @@ import { Authorized } from "./Authorized"
 import { CreatePost } from "../components/posts/CreatePost.jsx"
 import { DisplayAllPosts } from "../components/posts/DisplayAllPosts.jsx"
 import { PostDetails } from "../components/posts/PostDetails.jsx"
+import { EditPost } from "../components/posts/EditPost.jsx"
 
 export const ApplicationViews = ({ token, setToken }) => {
   return (
@@ -16,6 +17,7 @@ export const ApplicationViews = ({ token, setToken }) => {
         <Route path="/allposts" element={<DisplayAllPosts token={token} />} />
         <Route path="/createpost" element={<CreatePost token={token} />} />
         <Route path="/posts/:postId" element={<PostDetails />} />
+        <Route path="/posts/:postId/edit" element={<EditPost />} />
       </Route>
     </Routes>
   )

@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 export const PostDetails = () => {
   const { postId } = useParams()
   const [post, setPost] = useState(null)
   const [notFound, setNotFound] = useState(false)
+  const navigate = useNavigate()
+
+const goToEdit = () => navigate(`/posts/${post.id}/edit`)
+
 
   useEffect(() => {
     if (postId) {
@@ -68,7 +73,7 @@ export const PostDetails = () => {
       </div>
 
       <div className="buttons mt-5">
-        <button className="button is-warning">Edit</button>
+        <button className="button is-warning" onClick={goToEdit}>Edit</button>
         <button className="button is-danger">Delete</button>
       </div>
     </section>
