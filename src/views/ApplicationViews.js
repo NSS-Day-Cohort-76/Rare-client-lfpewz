@@ -5,17 +5,19 @@ import { Authorized } from "./Authorized"
 import { CreatePost } from "../components/posts/CreatePost.jsx"
 import { DisplayAllPosts } from "../components/posts/DisplayAllPosts.jsx"
 
+import { PostDetails } from "../components/posts/PostDetails.jsx"
 
 export const ApplicationViews = ({ token, setToken }) => {
-  return <>
+  return (
     <Routes>
       <Route path="/login" element={<Login setToken={setToken} />}  />
       <Route path="/register" element={<Register setToken={setToken} />}  />
       <Route element={<Authorized token={token} />}>
         {/* Add Routes here */}
-        <Route path="all-posts" element={<DisplayAllPosts token={token} />} />
-        <Route path="createpost" element={<CreatePost token={token} />} />
+        <Route path="/all-posts" element={<DisplayAllPosts token={token} />} />
+        <Route path="/createpost" element={<CreatePost token={token} />} />
+        <Route path="/posts/:postId" element={<PostDetails />} />
       </Route>
     </Routes>
-  </>
+  )
 }
