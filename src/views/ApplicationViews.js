@@ -3,6 +3,7 @@ import { Login } from "../components/auth/Login"
 import { Register } from "../components/auth/Register"
 import { Authorized } from "./Authorized"
 import { CreatePost } from "../components/posts/CreatePost.jsx"
+import { TagManager } from "../components/tagmanager/tagmanager.jsx"
 
 export const ApplicationViews = ({ token, setToken }) => {
   return <>
@@ -12,6 +13,7 @@ export const ApplicationViews = ({ token, setToken }) => {
       <Route element={<Authorized token={token} />}>
         {/* Add Routes here */}
         <Route path="createpost" element={<CreatePost token={token} />} />
+        <Route path="tagmanager" element={<TagManager token={token} />} />
       </Route>
     </Routes>
   </>
