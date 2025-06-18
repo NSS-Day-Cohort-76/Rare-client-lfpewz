@@ -4,29 +4,40 @@ import { CreateNewTag } from "../../services/createNewtag.jsx";
 
 export const TagManager = () => {
     const [tag, setTag] = useState([]);
-    
-
+    const [allTags, setAllTags] = useState([]);
 
     useEffect(() => {
-        GetAllTags().then(setTag)
+        GetAllTags().then(setAllTags)
     }, []);
-
+    
+    
     const handleSubmitTag = (e) => {
-        e.preventDefault()
-        const newTag = {
-            id: tag.id,
-            label: tag.label
-        }
-        CreateNewTag(newTag)
-        .then(() => {
-            console.log("New tag added!");
-        })
-    }
+        e.preventDefault();
+        if (!tag.trim()) return;
+        CreateNewTag(tag)
+            .then(() => {
+                setTag(""); // Clear input
+                // Refresh tag list after adding new tag
+                GetAllTags().then(setAllTags);
+            })
+};
     return (
         <article className="container">
             <header className="header">Hello Tag Manager!</header>
             <section className="">
-                <div>This is where the list of mapped tags will go!</div>
+                    
+                    {Array.isArray(allTags) && allTags.map(t => (
+                        <div key={t.id}>
+                            <button>
+                             ⚙️
+                            </button>
+                            <button>
+                             🗑️
+                            </button>
+                            {t.label}
+                        </div>
+                    ))}
+                
             </section>
             <section className="">
                 <form onSubmit={handleSubmitTag}>
