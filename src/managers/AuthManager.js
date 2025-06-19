@@ -22,7 +22,6 @@ export const registerUser = (newUser) => {
     body: JSON.stringify(newUser)
   }).then(res => {
     if (!res.ok) {
-      // If it's a 400 from backend, return the error message as a rejected promise
       return res.json().then(error => Promise.reject(error))
     }
     return res.json()

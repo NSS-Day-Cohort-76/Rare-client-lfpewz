@@ -23,10 +23,11 @@ export const Login = ({ user, setUser }) => {
           console.log(res); // <-- Add this line
         if ("valid" in res && res.valid) {
           const userObj = {
-            userId: res.user_id,    // from backend response
-            isStaff: res.isStaff   // from backend response
-          }
-          setUser(userObj) // This updates state and localStorage
+            userId: res.user_id,    // use 'id' as the key
+            isStaff: res.isStaff
+            // valid: true
+        }
+        setUser(userObj) // This updates state and localStorage
           navigate("/")    // Redirect after login
         } else {
           setIsUnsuccessful(true)
