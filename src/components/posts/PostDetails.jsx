@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
+import { deletePost } from "../../managers/PostManager.js"
+import { useOutletContext } from "react-router-dom"
 
 export const PostDetails = () => {
   const { postId } = useParams()
@@ -9,6 +11,17 @@ export const PostDetails = () => {
   const navigate = useNavigate()
 
 const goToEdit = () => navigate(`/posts/${post.id}/edit`)
+
+const { user } = useOutletContext()
+
+const handleDelete = () => {
+  const confirmDelete = window.confirm("Are you sure you want to delete this post?")
+  if (confirmDelete) {
+    deletePost(post.id, user).then(() => {
+      navigate("/allposts")
+    })
+  }
+}
 
 
   useEffect(() => {
@@ -51,6 +64,7 @@ const goToEdit = () => navigate(`/posts/${post.id}/edit`)
     ? new Date(post.publication_date).toLocaleDateString()
     : "Unknown"
 
+
   return (
     <section className="section">
       <div className="container box">
@@ -74,7 +88,7 @@ const goToEdit = () => navigate(`/posts/${post.id}/edit`)
 
       <div className="buttons mt-5">
         <button className="button is-warning" onClick={goToEdit}>Edit</button>
-        <button className="button is-danger">Delete</button>
+        <button className="button is-danger" onClick={handleDelete}>Delete</button>
       </div>
     </section>
   )

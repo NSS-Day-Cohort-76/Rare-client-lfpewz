@@ -1,13 +1,22 @@
 export const createPost = (postData, user) => {
+  console.log("Sending auth headers:", `Token ${user.userId}`);
+  console.log("POST BVODY:", postData);
+
   return fetch("http://localhost:8088/posts", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `User ${user}`,
+      Authorization: `Token ${user.userId}`,
     },
     body: JSON.stringify(postData),
-  }).then((res) => res.json())
+  }).then((res) => {
+    if (!res.ok) {
+      throw new Error("Unauthorized or invalid post")
+    }
+    return res.json()
+  })
 }
+
 
 export const getAllPosts = () => {
   return fetch("http://localhost:8088/posts").then((res) => res.json())
@@ -29,8 +38,11 @@ export const updatePost = (postId, updatedPost) => {
   })
 }
 
-export const deletePost = (postId) => {
+export const deletePost = (postId, user) => {
   return fetch(`http://localhost:8088/posts/${postId}`, {
     method: "DELETE",
+    headers: {
+      Authorization: `Token ${user.userId}`,
+    },
   })
 }

@@ -1,8 +1,11 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { createPost } from "../../managers/PostManager"
+import { useOutletContext } from "react-router-dom"
 
-export const CreatePost = ({ user }) => {
+
+export const CreatePost = () => {
+  const { user } = useOutletContext()
   const navigate = useNavigate()
 
   const [postData, setPostData] = useState({
@@ -18,6 +21,7 @@ export const CreatePost = ({ user }) => {
   }
 
   const handleSubmit = (event) => {
+    console.log("user being passed to createPost:", user)
     event.preventDefault()
 
     createPost(postData, user)
