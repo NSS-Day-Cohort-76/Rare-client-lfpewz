@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import "./NavBar.css"
 import Logo from "./rare.jpeg"
 
-export const NavBar = ({ token, setToken }) => {
+export const NavBar = ({ user, setUser }) => {
   const navigate = useNavigate()
   const navbar = useRef()
   const hamburger = useRef()
@@ -31,7 +31,7 @@ export const NavBar = ({ token, setToken }) => {
       <div className="navbar-menu" ref={navbar}>
         <div className="navbar-start">
           {
-            token
+            user
               ?
               <Link to="/allposts" className="navbar-item">All Posts</Link>
               :
@@ -40,7 +40,7 @@ export const NavBar = ({ token, setToken }) => {
         </div>
         <div className="navbar-start">
           {
-            token
+            user
               ?
               <Link to="/" className="navbar-item">My Posts</Link>
               :
@@ -49,7 +49,7 @@ export const NavBar = ({ token, setToken }) => {
         </div>
         <div className="navbar-start">
           {
-            token
+            user
               ?
               <Link to="/" className="navbar-item">Catagory Manager</Link>
               :
@@ -58,7 +58,7 @@ export const NavBar = ({ token, setToken }) => {
         </div>
         <div className="navbar-start">
           {
-            token
+            user
               ?
               <Link to="tagmanager" className="navbar-item">Tag Manager</Link>
               :
@@ -67,7 +67,7 @@ export const NavBar = ({ token, setToken }) => {
         </div>
         <div className="navbar-start">
           {
-            token
+            user
               ?
               <Link to="/" className="navbar-item">User Manager</Link>
               :
@@ -79,10 +79,10 @@ export const NavBar = ({ token, setToken }) => {
           <div className="navbar-item">
             <div className="buttons">
               {
-                token
+                user
                   ?
                   <button className="button is-outlined" onClick={() => {
-                    setToken('')
+                    setUser('')
                     navigate('/login')
                   }}>Logout</button>
                   :
