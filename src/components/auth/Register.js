@@ -31,7 +31,12 @@ export const Register = ({ setUser }) => {
       registerUser(newUser)
         .then(res => {
           if ("valid" in res && res.valid) {
-            setUser(res.user)
+            const userObj = {
+            id: res.user_id,    // match backend response
+            isStaff: res.isStaff
+            // valid: true
+          }
+          setUser(userObj)
             navigate("/")
           }
         })

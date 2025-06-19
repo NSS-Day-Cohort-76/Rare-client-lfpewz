@@ -3,10 +3,10 @@ import { Login } from "../components/auth/Login"
 import { Register } from "../components/auth/Register"
 import { Authorized } from "./Authorized"
 import { CreatePost } from "../components/posts/CreatePost.jsx"
-import { DisplayAllPosts } from "../components/posts/DisplayAllPosts.jsx"
 import { TagManager } from "../components/tagmanager/tagmanager.jsx"
 import { PostDetails } from "../components/posts/PostDetails.jsx"
 import { EditPost } from "../components/posts/EditPost.jsx"
+import { DisplayAllPosts } from "../components/posts/DisplayAllPosts.jsx"
 
 
 export const ApplicationViews = ({ user, setUser }) => {
