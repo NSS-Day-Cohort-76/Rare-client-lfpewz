@@ -7,8 +7,7 @@ import { DisplayAllPosts } from "../components/posts/DisplayAllPosts.jsx"
 import { TagManager } from "../components/tagmanager/tagmanager.jsx"
 import { PostDetails } from "../components/posts/PostDetails.jsx"
 import { EditPost } from "../components/posts/EditPost.jsx"
-import { DisplayAllPosts } from "../components/posts/DisplayAllPosts.jsx"
-import { TagManager } from "../components/tagmanager/tagmanager.jsx"
+
 
 export const ApplicationViews = ({ user, setUser }) => {
   return (
@@ -25,8 +24,6 @@ export const ApplicationViews = ({ user, setUser }) => {
         <Route path="/tagmanager" element={<TagManager user={user} />} />
         <Route path="/tagmanager/edittag/:id" element={<TagManager user={user} />} />
         <Route path="/posts/:postId/edit" element={<EditPost />} />
-        <Route path="/allposts" element={<DisplayAllPosts user={user} />} />
-        <Route path="/tagmanager" element={<TagManager user={user} />} />
       </Route>
     </Routes>
   )
