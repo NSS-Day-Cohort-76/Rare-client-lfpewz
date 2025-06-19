@@ -1,35 +1,37 @@
-import { useRef, useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import { loginUser } from "../../managers/AuthManager"
+import { useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { loginUser } from "../../managers/AuthManager";
 
-export const Login = ({ setToken }) => {
-  const username = useRef()
-  const password = useRef()
-  const navigate = useNavigate()
-  const [isUnsuccessful, setisUnsuccessful] = useState(false)
+export const Login = ({ user, setUser }) => {
+  const username = useRef();
+  const password = useRef();
+  const navigate = useNavigate();
+  const [isUnsuccessful, setIsUnsuccessful] = useState(false);
   //const [token, setTokenState] = useState(localStorage.getItem('auth_token')) // pls don't break
 
   const handleLogin = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     const user = {
       username: username.current.value,
-      password: password.current.value
-    }
+      password: password.current.value,
+    };
 
-    loginUser(user).then(res => {
-      if ("valid" in res && res.valid) {
-        setToken(res.token)
-        const userId = parseInt(res.token.split("_").pop())
-        localStorage.setItem("rare_user", JSON.stringify({ id: userId }))
-        // localStorage.setItem("rare_user_id", userId)
-        navigate("/")
-      }
-      else {
-        setisUnsuccessful(true)
-      }
-    })
-  }
+
+      // ...existing code...
+      loginUser(user).then((res) => {
+          console.log(res); // <-- Add this line
+        if ("valid" in res && res.valid) {
+          const userObj = {
+            userId: res.user_id,    // from backend response
+            isStaff: res.isStaff   // from backend response
+          }
+          setUser(userObj) // This updates state and localStorage
+          navigate("/")    // Redirect after login
+        } else {
+          setIsUnsuccessful(true)
+        }
+      })}
 
   return (
     <section className="columns is-centered">
@@ -53,16 +55,22 @@ export const Login = ({ setToken }) => {
 
         <div className="field is-grouped">
           <div className="control">
-            <button className="button is-link" type="submit" >Submit</button>
+            <button className="button is-link" type="submit">
+              Submit
+            </button>
           </div>
           <div className="control">
-            <Link to="/register" className="button is-link is-light">Cancel</Link>
+            <Link to="/register" className="button is-link is-light">
+              Cancel
+            </Link>
           </div>
         </div>
-        {
-          isUnsuccessful ? <p className="help is-danger">Username or password not valid</p> : ''
-        }
+        {isUnsuccessful ? (
+          <p className="help is-danger">Username or password not valid</p>
+        ) : (
+          ""
+        )}
       </form>
     </section>
-  )
-}
+  );
+};
