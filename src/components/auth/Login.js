@@ -21,7 +21,8 @@ export const Login = ({ setToken }) => {
       if ("valid" in res && res.valid) {
         setToken(res.token)
         const userId = parseInt(res.token.split("_").pop())
-        localStorage.setItem("rare_user_id", userId)
+        localStorage.setItem("rare_user", JSON.stringify({ id: userId }))
+        // localStorage.setItem("rare_user_id", userId)
         navigate("/")
       }
       else {

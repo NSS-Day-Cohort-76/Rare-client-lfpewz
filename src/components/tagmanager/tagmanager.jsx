@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { GetAllTags } from "../../services/getAllTags.jsx";
 import { CreateNewTag } from "../../services/createNewtag.jsx";
+import { DeleteTag } from "../../services/DeleteTagService.jsx";
+import { EditTag } from "../../services/EditTagService.jsx";
+import { useNavigate } from "react-router-dom";
 
 export const TagManager = () => {
     const [tag, setTag] = useState([]);
     const [allTags, setAllTags] = useState([]);
-
+    const navigate = useNavigate()
     useEffect(() => {
         GetAllTags().then(setAllTags)
     }, []);
@@ -21,6 +24,20 @@ export const TagManager = () => {
                 GetAllTags().then(setAllTags);
             })
 };
+
+    const handleDeleteTag = (id) => {
+        DeleteTag(id).then(() => {
+            GetAllTags().then(setAllTags)
+        });
+    };
+
+    const handleEditTag = (id) => {
+        EditTag(id).then(() => {
+            GetAllTags().then(setAllTags).then(() => {
+                navigate(`/edittag/:id`)
+            })
+        })
+    }
     return (
         <article className="container">
             <header className="header">Hello Tag Manager!</header>
@@ -28,10 +45,14 @@ export const TagManager = () => {
                     
                     {Array.isArray(allTags) && allTags.map(t => (
                         <div key={t.id}>
-                            <button>
+                            <button
+                            onClick={() => handleEditTag(t.id)}
+                            >
                              ⚙️
                             </button>
-                            <button>
+                            <button 
+                            onClick={() => handleDeleteTag(t.id)}
+                            >
                              🗑️
                             </button>
                             {t.label}
