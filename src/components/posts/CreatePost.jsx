@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { createPost } from "../../managers/PostManager"
 
-export const CreatePost = ({ token }) => {
+export const CreatePost = ({ user }) => {
   const navigate = useNavigate()
 
   const [postData, setPostData] = useState({
@@ -20,7 +20,7 @@ export const CreatePost = ({ token }) => {
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    createPost(postData, token)
+    createPost(postData, user)
       .then(() => {
         navigate("/posts") // Go back to post list after creating
       })
@@ -31,12 +31,14 @@ export const CreatePost = ({ token }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Create a New Post</h2>
+  <form onSubmit={handleSubmit} className="box">
+    <h2 className="title is-4">Create a New Post</h2>
 
-      <div>
-        <label htmlFor="title">Title</label>
+    <div className="field">
+      <label className="label" htmlFor="title">Title</label>
+      <div className="control">
         <input
+          className="input"
           type="text"
           name="title"
           value={postData.title}
@@ -44,30 +46,39 @@ export const CreatePost = ({ token }) => {
           required
         />
       </div>
+    </div>
 
-      <div>
-        <label htmlFor="content">Content</label>
+    <div className="field">
+      <label className="label" htmlFor="content">Content</label>
+      <div className="control">
         <textarea
+          className="textarea"
           name="content"
           value={postData.content}
           onChange={handleChange}
           required
         />
       </div>
+    </div>
 
-      <div>
-        <label htmlFor="image_url">Image URL</label>
+    <div className="field">
+      <label className="label" htmlFor="image_url">Image URL</label>
+      <div className="control">
         <input
+          className="input"
           type="text"
           name="image_url"
           value={postData.image_url}
           onChange={handleChange}
         />
       </div>
+    </div>
 
-      <div>
-        <label htmlFor="category_id">Category ID</label>
+    <div className="field">
+      <label className="label" htmlFor="category_id">Category ID</label>
+      <div className="control">
         <input
+          className="input"
           type="number"
           name="category_id"
           value={postData.category_id}
@@ -75,8 +86,13 @@ export const CreatePost = ({ token }) => {
           required
         />
       </div>
+    </div>
 
-      <button type="submit">Submit Post</button>
-    </form>
-  )
+    <div className="field is-grouped is-grouped-right">
+      <div className="control">
+        <button type="submit" className="button is-link">Submit Post</button>
+      </div>
+    </div>
+  </form>
+)
 }
