@@ -32,35 +32,6 @@ export const Login = ({ user, setUser }) => {
           setIsUnsuccessful(true)
         }
       })}
-// ...existing code...
-
-  //   loginUser(user).then((res) => {
-  //     if ("valid" in res && res.valid) {
-  //       const userObj = {
-  //         userId: res.user_id,
-  //         isStaff: res.is_staff,
-  //       };
-  //       localStorage.setItem("rare_user", JSON.stringify(userObj));
-  //       navigate("/");
-  //     }
-  //     else {
-  //       setisUnsuccessful(true)
-  //     }
-  //   });
-  // };
-
-  //     if ("valid" in res && res.valid) {
-  //       setToken(res.token)
-  //       // const userId = parseInt(res.token.split("_").pop())
-  //       localStorage.setItem("rare_user", res.token)
-  //       // localStorage.setItem("rare_user_id", userId)
-  //       navigate("/")
-  //     }
-  //     else {
-  //       setisUnsuccessful(true)
-  //     }
-  //   })
-  // }
 
   return (
     <section className="columns is-centered">

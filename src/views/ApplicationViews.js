@@ -22,10 +22,11 @@ export const ApplicationViews = ({ user, setUser }) => {
         <Route path="/createpost" element={<CreatePost user={user} />} />
 
         <Route path="/posts/:postId" element={<PostDetails />} />
-        <Route path="tagmanager" element={<TagManager user={user} />} />
+        <Route path="/tagmanager" element={<TagManager user={user} />} />
+        <Route path="/tagmanager/edittag/:id" element={<TagManager user={user} />} />
         <Route path="/posts/:postId/edit" element={<EditPost />} />
-        <Route path="/allposts" element={<DisplayAllPosts token={token} />} />
-        <Route path="/tagmanager" element={<TagManager token={token} />} />
+        <Route path="/allposts" element={<DisplayAllPosts user={user} />} />
+        <Route path="/tagmanager" element={<TagManager user={user} />} />
       </Route>
     </Routes>
   )
