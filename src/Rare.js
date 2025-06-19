@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { ApplicationViews } from "./views/ApplicationViews"
-import { NavBar } from "./components/nav/NavBar"
+import { NavBar } from "./components/nav/NavBar.js"
 
 export const Rare = () => {
   // Parse the user object from localStorage, or use null if not present
