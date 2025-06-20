@@ -8,6 +8,7 @@ import { PostDetails } from "../components/posts/PostDetails.jsx"
 import { EditPost } from "../components/posts/EditPost.jsx"
 import { DisplayAllPosts } from "../components/posts/DisplayAllPosts.jsx"
 import { CategoryManager } from "../components/categories/CatgeoryDetails.jsx"
+import { HomePageDisplay } from "../components/home/home.jsx"
 
 
 export const ApplicationViews = ({ user, setUser }) => {
@@ -18,6 +19,7 @@ export const ApplicationViews = ({ user, setUser }) => {
       <Route path="/register" element={<Register setUser={setUser} />}  />
       <Route element={<Authorized user={user} />}>
         {/* Add Routes here */}
+        <Route path="/" element={<HomePageDisplay user={user} />} />
         <Route path="/allposts" element={<DisplayAllPosts user={user} />} />
         <Route path="/createpost" element={<CreatePost user={user} />} />
         <Route path="/categorymanager" element={< CategoryManager user={user} />} />
