@@ -7,6 +7,7 @@ import { TagManager } from "../components/tagmanager/tagmanager.jsx"
 import { PostDetails } from "../components/posts/PostDetails.jsx"
 import { EditPost } from "../components/posts/EditPost.jsx"
 import { DisplayAllPosts } from "../components/posts/DisplayAllPosts.jsx"
+import { CategoryManager } from "../components/categories/CatgeoryDetails.jsx"
 
 
 export const ApplicationViews = ({ user, setUser }) => {
@@ -19,7 +20,8 @@ export const ApplicationViews = ({ user, setUser }) => {
         {/* Add Routes here */}
         <Route path="/allposts" element={<DisplayAllPosts user={user} />} />
         <Route path="/createpost" element={<CreatePost user={user} />} />
-
+        <Route path="/categorymanager" element={< CategoryManager user={user} />} />
+        <Route path="/categorymanager/editcategory/:id" element={<TagManager user={user} />} />
         <Route path="/posts/:postId" element={<PostDetails />} />
         <Route path="/tagmanager" element={<TagManager user={user} />} />
         <Route path="/tagmanager/edittag/:id" element={<TagManager user={user} />} />

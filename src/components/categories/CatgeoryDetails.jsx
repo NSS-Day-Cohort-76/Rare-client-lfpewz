@@ -1,48 +1,46 @@
 import { useEffect, useState } from "react";
-import { GetAllTags } from "../../services/getAllTags.jsx";
-import { CreateNewTag } from "../../services/createNewtag.jsx";
-import { DeleteTag } from "../../services/DeleteTagService.jsx";
+import { CreateNewCategory, DeleteCategory, getAllCategories } from "../../managers/CategoryManager.js"; 
 import { useNavigate } from "react-router-dom";
 
-export const TagManager = () => {
-  const [tag, setTag] = useState("");
-  const [allTags, setAllTags] = useState([]);
+export const CategoryManager = () => {
+  const [category, setCategory] = useState("");
+  const [allCategories, setAllCategories] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    GetAllTags().then(setAllTags);
+    getAllCategories().then(setAllCategories);
   }, []);
 
-  const handleSubmitTag = (e) => {
+  const handleSubmitCategory = (e) => {
     e.preventDefault();
-    if (!tag.trim()) return;
-    CreateNewTag(tag)
+    if (!category.trim()) return;
+    CreateNewCategory(category)
       .then(() => {
-        setTag(""); // Clear input
-        return GetAllTags();
+        setCategory(""); // Clear input
+        return getAllCategories();
       })
-      .then(setAllTags);
+      .then(setAllCategories);
   };
 
-  const handleDeleteTag = (id) => {
-    DeleteTag(id)
-      .then(() => GetAllTags())
-      .then(setAllTags);
+  const handleDeleteCategory = (id) => {
+    DeleteCategory(id)
+      .then(() => getAllCategories())
+      .then(setAllCategories);
   };
 
-  const handleEditTag = (id) => {
-    navigate(`/edittag/${id}`);
+  const handleEditCategory = (id) => {
+    navigate(`/editcategory/${id}`);
   };
 
   return (
     <article className="container" style={{ maxWidth: 600, margin: "2rem auto" }}>
-      <header className="title is-3 has-text-centered mb-6">Tag Manager</header>
+      <header className="title is-3 has-text-centered mb-6">Category Manager</header>
 
       <section className="box mb-6">
-        {allTags.length === 0 ? (
-          <p className="has-text-grey has-text-centered">No tags available.</p>
+        {allCategories.length === 0 ? (
+          <p className="has-text-grey has-text-centered">No categorys available.</p>
         ) : (
-          allTags.map((t) => (
+          allCategories.map((t) => (
             <div
               key={t.id}
               className="level is-mobile mb-3 p-3 box has-shadow is-clickable"
@@ -54,8 +52,8 @@ export const TagManager = () => {
               <div className="level-right">
                 <button
                   className="button is-info is-medium mr-3"
-                  aria-label={`Edit tag ${t.label}`}
-                  onClick={() => handleEditTag(t.id)}
+                  aria-label={`Edit category ${t.label}`}
+                  onClick={() => handleEditCategory(t.id)}
                 >
                   <span className="icon">
                     <i className="fas fa-edit"></i>
@@ -64,8 +62,8 @@ export const TagManager = () => {
                 </button>
                 <button
                   className="button is-danger is-medium"
-                  aria-label={`Delete tag ${t.label}`}
-                  onClick={() => handleDeleteTag(t.id)}
+                  aria-label={`Delete category ${t.label}`}
+                  onClick={() => handleDeleteCategory(t.id)}
                 >
                   <span className="icon">
                     <i className="fas fa-trash-alt"></i>
@@ -79,19 +77,19 @@ export const TagManager = () => {
       </section>
 
       <section className="box">
-        <form onSubmit={handleSubmitTag}>
-          <label className="label" htmlFor="new-tag-input">
-            Create New Tag
+        <form onSubmit={handleSubmitCategory}>
+          <label className="label" htmlFor="new-category-input">
+            Create New Category
           </label>
           <div className="field has-addons">
             <div className="control is-expanded">
               <input
-                id="new-tag-input"
+                id="new-category-input"
                 className="input"
                 type="text"
-                placeholder="Add tag"
-                value={tag}
-                onChange={(e) => setTag(e.target.value)}
+                placeholder="Add category"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
                 required
               />
             </div>

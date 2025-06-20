@@ -51,7 +51,7 @@ export const NavBar = ({ user, setUser }) => {
           {
             user
               ?
-              <Link to="/" className="navbar-item">Catagory Manager</Link>
+              <Link to="categorymanager" className="navbar-item">Catagory Manager</Link>
               :
               ""
           }
