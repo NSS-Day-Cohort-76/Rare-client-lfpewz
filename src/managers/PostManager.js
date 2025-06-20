@@ -3,7 +3,7 @@ export const createPost = (postData, user) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `User ${user}`,
+      Authorization: `Token ${user.userId}`,
     },
     body: JSON.stringify(postData),
   }).then((res) => res.json())
