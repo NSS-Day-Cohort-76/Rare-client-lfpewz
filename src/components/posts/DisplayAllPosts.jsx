@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { getAllPosts } from "../../managers/PostManager.js"
+import { getAllPosts } from "../../managers/PostManager.js";
+
 
 export const DisplayAllPosts = ({ user }) => {
   const [allPosts, setAllPosts] = useState([]);
