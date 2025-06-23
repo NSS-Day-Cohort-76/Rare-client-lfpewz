@@ -42,7 +42,7 @@ export const NavBar = ({ user, setUser }) => {
           {
             user
               ?
-              <Link to="/" className="navbar-item">My Posts</Link>
+              <Link to="/myposts" className="navbar-item">My Posts</Link>
               :
               ""
           }
@@ -69,7 +69,7 @@ export const NavBar = ({ user, setUser }) => {
           {
             user
               ?
-              <Link to="/" className="navbar-item">User Manager</Link>
+              <Link to="/usermanager" className="navbar-item">User Manager</Link>
               :
               ""
           }
