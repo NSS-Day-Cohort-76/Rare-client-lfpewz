@@ -7,13 +7,15 @@ import { CreatePost } from "../components/posts/CreatePost.jsx"
 import { EditPost } from "../components/posts/EditPost.jsx"
 import { PostDetails } from "../components/posts/PostDetails.jsx"
 import { DisplayAllPosts } from "../components/posts/DisplayAllPosts.jsx"
+import { CategoryPosts } from "../components/categories/CategoryPosts.jsx"
 
 import { TagManager } from "../components/tagmanager/tagmanager.jsx"
-import { CategoryManager } from "../components/categories/CatgeoryDetails.jsx"
+import { CategoryManager } from "../components/categories/CategoryDetails.jsx"
 
 import { CommentForm } from "../components/comments/CommentForm.jsx"
 
 import { HomePageDisplay } from "../components/home/home.jsx"
+
 
 export const ApplicationViews = ({ user, setUser }) => {
   return (
@@ -39,6 +41,8 @@ export const ApplicationViews = ({ user, setUser }) => {
         <Route path="/tagmanager" element={<TagManager user={user} />} />
         <Route path="/tagmanager/edittag/:id" element={<TagManager user={user} />} />
         <Route path="/categorymanager" element={<CategoryManager user={user} />} />
+        <Route path="/categories/:categoryId/posts" element={<CategoryPosts />} />
+        <Route path="/posts/:postId" element={<PostDetails />} />
         <Route path="/categorymanager/editcategory/:id" element={<TagManager user={user} />} />
       </Route>
     </Routes>

@@ -80,7 +80,12 @@ export const CategoryManager = (user) => {
               style={{ borderRadius: "8px" }}
             >
               <div className="level-left">
-                <p className="is-size-5">{t.label}</p>
+                <p
+                  className="is-size-5 has-text-link is-clickable"
+                  onClick={() => navigate(`/categories/${t.id}/posts`)}
+                >
+                  {t.label}
+                </p>
               </div>
               <div className="level-right">
                 <button

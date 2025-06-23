@@ -28,3 +28,4 @@ export const updateCategory = (categoryId, updatedCategory) => {
     body: JSON.stringify(updatedCategory),
   })
 }
+
