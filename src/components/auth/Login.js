@@ -24,10 +24,13 @@ export const Login = ({ user, setUser }) => {
         if ("valid" in res && res.valid) {
           const userObj = {
             userId: res.user_id,    // use 'id' as the key
-            isStaff: res.isStaff
+            isStaff: res.is_staff,
+            token: res.token
             // valid: true
         }
         setUser(userObj) // This updates state and localStorage
+        console.log("✅ Logged in user:", userObj)
+
           navigate("/")    // Redirect after login
         } else {
           setIsUnsuccessful(true)
