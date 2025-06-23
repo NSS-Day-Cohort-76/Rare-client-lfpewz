@@ -13,7 +13,7 @@ export const DisplayAllPosts = ({ user }) => {
   }, []);
 
   const sortedPosts = allPosts.slice().sort(
-    (a, b) => new Date(a.publication_date) - new Date(b.publication_date)
+    (a, b) => new Date(b.publication_date) - new Date(a.publication_date)
   );
 
   return (

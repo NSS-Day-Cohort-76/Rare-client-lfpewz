@@ -1,25 +1,36 @@
 import { useEffect, useState } from "react";
-import { CreateNewCategory, DeleteCategory, getAllCategories } from "../../managers/CategoryManager.js"; 
+import {
+  CreateNewCategory,
+  DeleteCategory,
+  getAllCategories,
+  updateCategory,
+} from "../../managers/CategoryManager.js";
 import { useNavigate } from "react-router-dom";
 
-export const CategoryManager = () => {
+export const CategoryManager = (user) => {
   const [category, setCategory] = useState("");
   const [allCategories, setAllCategories] = useState([]);
+  const [editCategory, setEditCategory] = useState(null); // holds category being edited
+  const [editLabel, setEditLabel] = useState(""); // current input value
   const navigate = useNavigate();
 
   useEffect(() => {
     getAllCategories().then(setAllCategories);
-  }, []);
+  }, [user]);
 
   const handleSubmitCategory = (e) => {
     e.preventDefault();
     if (!category.trim()) return;
     CreateNewCategory(category)
       .then(() => {
-        setCategory(""); // Clear input
+        setCategory("");
         return getAllCategories();
       })
-      .then(setAllCategories);
+      .then(setAllCategories)
+      .catch((error) => {
+        console.error("Error creating category:", error);
+        // Optionally show user-facing error message
+      });
   };
 
   const handleDeleteCategory = (id) => {
@@ -28,17 +39,39 @@ export const CategoryManager = () => {
       .then(setAllCategories);
   };
 
-  const handleEditCategory = (id) => {
-    navigate(`/editcategory/${id}`);
+  const handleUpdateCategory = () => {
+    if (!editLabel.trim()) return;
+    updateCategory(editCategory.id, { label: editLabel })
+      .then(() => {
+        setEditCategory(null); // close modal
+        return getAllCategories();
+      })
+      .then(setAllCategories)
+      .catch((err) => {
+        console.error("Update failed", err);
+        // optional: show user feedback
+      });
+  };
+
+  const handleEditCategory = (category) => {
+    setEditCategory(category); // object with id and label
+    setEditLabel(category.label); // set input to current label
   };
 
   return (
-    <article className="container" style={{ maxWidth: 600, margin: "2rem auto" }}>
-      <header className="title is-3 has-text-centered mb-6">Category Manager</header>
+    <article
+      className="container"
+      style={{ maxWidth: 600, margin: "2rem auto" }}
+    >
+      <header className="title is-3 has-text-centered mb-6">
+        Category Manager
+      </header>
 
       <section className="box mb-6">
         {allCategories.length === 0 ? (
-          <p className="has-text-grey has-text-centered">No categorys available.</p>
+          <p className="has-text-grey has-text-centered">
+            No categories available.
+          </p>
         ) : (
           allCategories.map((t) => (
             <div
@@ -53,7 +86,7 @@ export const CategoryManager = () => {
                 <button
                   className="button is-info is-medium mr-3"
                   aria-label={`Edit category ${t.label}`}
-                  onClick={() => handleEditCategory(t.id)}
+                  onClick={() => handleEditCategory(t)} // pass full category object
                 >
                   <span className="icon">
                     <i className="fas fa-edit"></i>
@@ -90,8 +123,12 @@ export const CategoryManager = () => {
                 placeholder="Add category"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
+                aria-describedby="category-helper"
                 required
               />
+              <p id="category-helper" className="help">
+                Enter a short name for the new category.
+              </p>
             </div>
             <div className="control">
               <button type="submit" className="button is-primary">
@@ -104,6 +141,45 @@ export const CategoryManager = () => {
           </div>
         </form>
       </section>
+
+      {editCategory && (
+        <div className="modal is-active">
+          <div
+            className="modal-background"
+            onClick={() => setEditCategory(null)}
+          ></div>
+          <div className="modal-card">
+            <header className="modal-card-head">
+              <p className="modal-card-title">Edit Category</p>
+              <button
+                className="delete"
+                aria-label="close"
+                onClick={() => setEditCategory(null)}
+              ></button>
+            </header>
+            <section className="modal-card-body">
+              <input
+                className="input"
+                type="text"
+                value={editLabel}
+                onChange={(e) => setEditLabel(e.target.value)}
+                placeholder="Edit category name"
+              />
+            </section>
+            <footer className="modal-card-foot">
+              <button
+                className="button is-success"
+                onClick={handleUpdateCategory}
+              >
+                Save
+              </button>
+              <button className="button" onClick={() => setEditCategory(null)}>
+                Cancel
+              </button>
+            </footer>
+          </div>
+        </div>
+      )}
     </article>
   );
 };
