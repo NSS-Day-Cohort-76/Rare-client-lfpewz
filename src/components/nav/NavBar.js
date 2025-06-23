@@ -40,12 +40,58 @@ export const NavBar = ({ user, setUser }) => {
 
       <div className="navbar-menu" ref={navbar}>
         <div className="navbar-start">
+<<<<<<< HEAD
           {user && <Link to="/allposts" className="navbar-item">All Posts</Link>}
           {user && <Link to="/" className="navbar-item">My Posts</Link>}
           {user && <Link to="/categorymanager" className="navbar-item">Category Manager</Link>}
           {user && <Link to="/tagmanager" className="navbar-item">Tag Manager</Link>}
           {user && <Link to="/" className="navbar-item">User Manager</Link>}
           {user?.isStaff && (<Link to="/user-profiles" className="navbar-item">User Profiles</Link>)}
+=======
+          {
+            user
+              ?
+              <Link to="/allposts" className="navbar-item">All Posts</Link>
+              :
+              ""
+          }
+        </div>
+        <div className="navbar-start">
+          {
+            user
+              ?
+              <Link to="/myposts" className="navbar-item">My Posts</Link>
+              :
+              ""
+          }
+        </div>
+        <div className="navbar-start">
+          {
+            user
+              ?
+              <Link to="categorymanager" className="navbar-item">Catagory Manager</Link>
+              :
+              ""
+          }
+        </div>
+        <div className="navbar-start">
+          {
+            user
+              ?
+              <Link to="tagmanager" className="navbar-item">Tag Manager</Link>
+              :
+              ""
+          }
+        </div>
+        <div className="navbar-start">
+          {
+            user
+              ?
+              <Link to="/usermanager" className="navbar-item">User Manager</Link>
+              :
+              ""
+          }
+>>>>>>> develop
         </div>
 
         <div className="navbar-end">

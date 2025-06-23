@@ -46,3 +46,7 @@ export const deletePost = (postId, user) => {
     },
   })
 }
+
+export const getMostRecentPost = () => {
+  return fetch("http://localhost:8088/posts/mostRecentPost").then((res) => res.json())
+}
