@@ -63,37 +63,50 @@ export const PostDetails = () => {
 
   return (
     <section className="section">
-      <div className="container box">
-        <h1 className="title is-3 mb-4">{post.title}</h1>
+      <div className="container">
+        <div className="box">
+          <h1 className="title is-3 mb-4">{post.title}</h1>
 
-        {post.image_url && (
-          <figure className="image mb-4">
-            <img src={post.image_url} alt={post.title} />
-          </figure>
-        )}
+          {post.image_url && (
+            <figure className="image is-4by3 mb-5">
+              <img src={post.image_url} alt={post.title} style={{ objectFit: "cover" }} />
+            </figure>
+          )}
 
-        <p className="is-size-6 has-text-grey mb-2">
-          <strong>By:</strong> {post.author} &nbsp;|&nbsp;
-          <strong>Published:</strong> {formattedDate}
-        </p>
+          <div className="level is-mobile mb-4">
+            <div className="level-left">
+              <div className="level-item">
+                <p className="is-size-6 has-text-grey">
+                  <strong>By:</strong> {post.author}
+                </p>
+              </div>
+              <div className="level-item">
+                <p className="is-size-6 has-text-grey">
+                  <strong>Published:</strong> {formattedDate}
+                </p>
+              </div>
+            </div>
+          </div>
 
-        <div className="content mt-4">
-          <p>{post.content}</p>
+          <div className="content mb-5" style={{ whiteSpace: "pre-line" }}>
+            <p>{post.content}</p>
+          </div>
+
+          <div className="buttons">
+            <button className="button is-warning is-medium" onClick={goToEdit}>
+              Edit
+            </button>
+            <button className="button is-danger is-medium" onClick={handleDelete}>
+              Delete
+            </button>
+          </div>
         </div>
 
-        <div className="buttons mt-5">
-          <button className="button is-warning" onClick={goToEdit}>
-            Edit
-          </button>
-          <button className="button is-danger" onClick={handleDelete}>
-            Delete
-          </button>
+        {/* Comments Section */}
+        <div className="section">
+          <h2 className="title is-4">Comments</h2>
+          <CommentList user={user} postId={post.id} />
         </div>
-      </div>
-
-      {/* 🔽 Comments Section */}
-      <div className="container mt-6">
-        <CommentList user={user} /> {/* ✅ PASS IT HERE */}
       </div>
     </section>
   )

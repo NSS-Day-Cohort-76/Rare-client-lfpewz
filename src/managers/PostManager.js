@@ -50,3 +50,8 @@ export const deletePost = (postId, user) => {
 export const getMostRecentPost = () => {
   return fetch("http://localhost:8088/posts/mostRecentPost").then((res) => res.json())
 }
+
+export const getPostsByCategory = (categoryId) => {
+  return fetch(`http://localhost:8088/posts?category_id=${categoryId}`)
+    .then((res) => res.json());
+};

@@ -1,3 +1,89 @@
 /* @import 'bulma/css/bulma.css'; */
 
 @import 'bulma/css/bulma.css';
+
+.create-post-button {
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(50, 115, 220, 0.4);
+  font-weight: bold;
+}
+
+.create-post-button:hover {
+  background-color: #3273dc;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(50, 115, 220, 0.6);
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(50, 115, 220, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(50, 115, 220, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(50, 115, 220, 0);
+  }
+}
+
+.create-post-button {
+  animation: pulse 2.5s infinite;
+}
+
+
+/* Dark theme overrides */
+:root {
+  --bg-color: white;
+  --text-color: black;
+}
+
+.dark-mode {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+}
+
+/* Apply to body and other elements */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* Optional: Override Bulma components */
+.navbar,
+.card,
+.hero,
+.modal-content {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* Default Light Mode */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #1a1a1a;
+  --primary-color: #3273dc; /* Bulma blue */
+  --card-bg: #f9f9f9;
+}
+
+/* Dark Mode */
+body.dark-mode {
+  --bg-color: #121212;
+  --text-color: #f0f0f0;
+  --primary-color: #66b2ff;
+  --card-bg: #1e1e1e;
+}
+
+/* Apply theming to elements */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+a {
+  color: var(--primary-color);
+}
+
+.card, .box, .navbar, .modal-content, .hero {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+}

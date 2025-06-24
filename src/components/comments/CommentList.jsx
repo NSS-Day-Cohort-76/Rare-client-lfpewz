@@ -9,11 +9,14 @@ export const CommentList = ({ user }) => {
   const currentUserId = user?.userId || user?.id
 
   useEffect(() => {
-    getCommentsByPostId(postId).then(data => {
-      console.log("💬 Loaded comments:", data)
-      setComments(data)
-    })
-  }, [postId])
+  getCommentsByPostId(postId).then(data => {
+    console.log("💬 Loaded comments:", data)
+    // Sort comments by created_on descending (most recent first)
+    const sortedComments = data.sort((a, b) => new Date(b.created_on) - new Date(a.created_on))
+    setComments(sortedComments)
+  })
+}, [postId])
+
 
   const handleDelete = (commentId) => {
     if (window.confirm("Are you sure you want to delete this comment?")) {
