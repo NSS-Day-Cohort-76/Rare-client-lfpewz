@@ -15,6 +15,7 @@ import { CategoryManager } from "../components/categories/CategoryDetails.jsx"
 import { CommentForm } from "../components/comments/CommentForm.jsx"
 
 import { HomePageDisplay } from "../components/home/home.jsx"
+import { UserManager } from "../components/users/UserManager.jsx"
 
 
 export const ApplicationViews = ({ user, setUser }) => {
@@ -44,6 +45,9 @@ export const ApplicationViews = ({ user, setUser }) => {
         <Route path="/categories/:categoryId/posts" element={<CategoryPosts />} />
         <Route path="/posts/:postId" element={<PostDetails />} />
         <Route path="/categorymanager/editcategory/:id" element={<TagManager user={user} />} />
+
+        {/* User Profiles and Stuff */}
+        <Route path="/user-profiles" element={<UserManager user={user}/>} />
       </Route>
     </Routes>
   )

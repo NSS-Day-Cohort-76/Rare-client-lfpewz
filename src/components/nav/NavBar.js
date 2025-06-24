@@ -4,14 +4,17 @@ import "./NavBar.css";
 import Logo from "./rare.jpeg";
 
 export const NavBar = ({ user, setUser }) => {
-  const navigate = useNavigate();
-  const navbar = useRef();
-  const hamburger = useRef();
+  console.log(" Logged in User", user)
+  const navigate = useNavigate()
+  const navbar = useRef()
+  const hamburger = useRef()
 
   const showMobileNavbar = () => {
     hamburger.current.classList.toggle("is-active");
     navbar.current.classList.toggle("is-active");
   };
+
+
 
   return (
     <nav
@@ -32,6 +35,14 @@ export const NavBar = ({ user, setUser }) => {
           aria-label="menu"
           aria-expanded="false"
           data-target="navbarBasicExample"
+          onClick={showMobileNavbar}
+          ref={hamburger}
+        >
+        <a
+          role="button"
+          className="navbar-burger"
+          aria-label="menu"
+          aria-expanded="false"
           onClick={showMobileNavbar}
           ref={hamburger}
         >
@@ -86,6 +97,12 @@ export const NavBar = ({ user, setUser }) => {
           ) : (
             ""
           )}
+          {user && <Link to="/allposts" className="navbar-item">All Posts</Link>}
+          {user && <Link to="/" className="navbar-item">My Posts</Link>}
+          {user && <Link to="/categorymanager" className="navbar-item">Category Manager</Link>}
+          {user && <Link to="/tagmanager" className="navbar-item">Tag Manager</Link>}
+          {user && <Link to="/" className="navbar-item">User Manager</Link>}
+          {user?.isStaff && (<Link to="/user-profiles" className="navbar-item">User Profiles</Link>)}
         </div>
 
         <div className="navbar-end">
@@ -117,6 +134,19 @@ export const NavBar = ({ user, setUser }) => {
                   <Link to="/login" className="button is-outlined">
                     Login
                   </Link>
+                </>
+              )}
+              {user ? (
+                <button className="button is-outlined" onClick={() => {
+                  setUser('')
+                  navigate('/login')
+                }}>
+                  Logout
+                </button>
+              ) : (
+                <>
+                  <Link to="/register" className="button is-link">Register</Link>
+                  <Link to="/login" className="button is-outlined">Login</Link>
                 </>
               )}
             </div>
