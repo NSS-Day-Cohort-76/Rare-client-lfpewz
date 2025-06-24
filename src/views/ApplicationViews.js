@@ -12,9 +12,9 @@ import { TagManager } from "../components/tagmanager/tagmanager.jsx"
 import { CategoryManager } from "../components/categories/CatgeoryDetails.jsx"
 
 import { CommentForm } from "../components/comments/CommentForm.jsx"
-import { UserProfiles } from "../components/users/UserProfiles.jsx"
 
 import { HomePageDisplay } from "../components/home/home.jsx"
+import { UserManager } from "../components/users/UserManager.jsx"
 
 export const ApplicationViews = ({ user, setUser }) => {
   return (
@@ -43,7 +43,7 @@ export const ApplicationViews = ({ user, setUser }) => {
         <Route path="/categorymanager/editcategory/:id" element={<TagManager user={user} />} />
 
         {/* User Profiles and Stuff */}
-        <Route path="/user-profiles" element={<UserProfiles user={user}/>} />
+        <Route path="/user-profiles" element={<UserManager user={user}/>} />
       </Route>
     </Routes>
   )
