@@ -105,7 +105,7 @@ Rare-client-lfpewz/
 - **PostTags**: id, post_id, tag_id
 - **Reactions**, **Comments**, etc.
 
-See `loaddata.sql` for full schema.
+See `loaddata.sql` for full schema and example data.
 
 ---
 
@@ -128,6 +128,7 @@ See `loaddata.sql` for full schema.
 
 **Note:**
 - For protected endpoints, send `Authorization: Token rare_token_user_<userId>` in headers.
+- All endpoints return JSON. For 204 No Content, the response body is empty.
 
 ---
 
@@ -142,7 +143,9 @@ See `loaddata.sql` for full schema.
 - **Tags/Categories:**  
   Manage tags and categories from their respective managers.
 - **Authorization:**  
-  When creating or modifying posts, the client sends the token in the Authorization header.
+  When creating or modifying posts, the client sends the token in the Authorization header as `Authorization: Token rare_token_user_<userId>`.
+- **Styling:**  
+  The client uses [Bulma](https://bulma.io/documentation) for styling. Familiarize yourself with Bulma if you want to customize the UI.
 
 ---
 
@@ -187,6 +190,8 @@ See `loaddata.sql` for full schema.
 - Use browser DevTools Network tab to inspect API requests and responses.
 - Use `console.log` in React and `print` in Python to debug data flow.
 - Check the database with `sqlite3 db.sqlite3` if data is missing.
+- If you get a 400/500 error, check the backend logs for tracebacks.
+- If you get a CORS error, make sure your backend is running and sending the correct headers.
 
 ---
 

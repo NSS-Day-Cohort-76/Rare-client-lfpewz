@@ -15,6 +15,7 @@ import { CategoryManager } from "../components/categories/CategoryDetails.jsx"
 import { CommentForm } from "../components/comments/CommentForm.jsx"
 
 import { HomePageDisplay } from "../components/home/home.jsx"
+import { DisplayMyPosts } from "../components/posts/myPosts.jsx"
 import { UserManager } from "../components/users/UserManager.jsx"
 
 
@@ -28,7 +29,7 @@ export const ApplicationViews = ({ user, setUser }) => {
         {/* Default homepage route */}
         <Route path="/" element={<HomePageDisplay user={user} />} />
         <Route path="/allposts" element={<DisplayAllPosts user={user} />} />
-
+        <Route path="/myposts" element={<DisplayMyPosts user={user} />} />
         {/* Post Routes */}
         <Route path="/createpost" element={<CreatePost user={user} />} />
         <Route path="/posts/:postId" element={<PostDetails />} />
