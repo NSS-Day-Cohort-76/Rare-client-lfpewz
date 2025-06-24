@@ -30,7 +30,7 @@ export const CreatePost = () => {
 
     createPost(postData, user)
       .then(() => {
-        navigate("/posts")
+        navigate("/allposts")
       })
       .catch((err) => {
         console.error("Error creating post:", err)
