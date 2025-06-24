@@ -7,6 +7,9 @@ import { useNavigate } from "react-router-dom";
 export const TagManager = () => {
   const [tag, setTag] = useState("");
   const [allTags, setAllTags] = useState([]);
+  // Edit modal state
+  const [editTag, setEditTag] = useState(null); // holds tag being edited
+  const [editLabel, setEditLabel] = useState(""); // current input value
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,8 +33,27 @@ export const TagManager = () => {
       .then(setAllTags);
   };
 
-  const handleEditTag = (id) => {
-    navigate(`/edittag/${id}`);
+  // Open modal for editing
+  const handleEditTag = (tagObj) => {
+    setEditTag(tagObj); // object with id and label
+    setEditLabel(tagObj.label); // set input to current label
+  };
+
+  // Update tag (you need to implement UpdateTag service)
+  const handleUpdateTag = () => {
+    if (!editLabel.trim()) return;
+    // You must implement UpdateTag in your services, similar to updateCategory
+    import("../../services/EditTagService.jsx").then(({ EditTag }) => {
+      EditTag(editTag.id, { label: editLabel })
+        .then(() => {
+          setEditTag(null); // close modal
+          return GetAllTags();
+        })
+        .then(setAllTags)
+        .catch((err) => {
+          console.error("Update failed", err);
+        });
+    });
   };
 
   return (
@@ -42,39 +64,42 @@ export const TagManager = () => {
         {allTags.length === 0 ? (
           <p className="has-text-grey has-text-centered">No tags available.</p>
         ) : (
-          allTags.map((t) => (
-            <div
-              key={t.id}
-              className="level is-mobile mb-3 p-3 box has-shadow is-clickable"
-              style={{ borderRadius: "8px" }}
-            >
-              <div className="level-left">
-                <p className="is-size-5">{t.label}</p>
+          allTags
+            .slice()
+            .sort((a, b) => a.label.localeCompare(b.label))
+            .map((t) => (
+              <div
+                key={t.id}
+                className="level is-mobile mb-3 p-3 box has-shadow is-clickable"
+                style={{ borderRadius: "8px" }}
+              >
+                <div className="level-left">
+                  <p className="is-size-5">{t.label}</p>
+                </div>
+                <div className="level-right">
+                  <button
+                    className="button is-info is-medium mr-3"
+                    aria-label={`Edit tag ${t.label}`}
+                    onClick={() => handleEditTag(t)} // pass full tag object
+                  >
+                    <span className="icon">
+                      <i className="fas fa-edit"></i>
+                    </span>
+                    <span>Edit</span>
+                  </button>
+                  <button
+                    className="button is-danger is-medium"
+                    aria-label={`Delete tag ${t.label}`}
+                    onClick={() => handleDeleteTag(t.id)}
+                  >
+                    <span className="icon">
+                      <i className="fas fa-trash-alt"></i>
+                    </span>
+                    <span>Delete</span>
+                  </button>
+                </div>
               </div>
-              <div className="level-right">
-                <button
-                  className="button is-info is-medium mr-3"
-                  aria-label={`Edit tag ${t.label}`}
-                  onClick={() => handleEditTag(t.id)}
-                >
-                  <span className="icon">
-                    <i className="fas fa-edit"></i>
-                  </span>
-                  <span>Edit</span>
-                </button>
-                <button
-                  className="button is-danger is-medium"
-                  aria-label={`Delete tag ${t.label}`}
-                  onClick={() => handleDeleteTag(t.id)}
-                >
-                  <span className="icon">
-                    <i className="fas fa-trash-alt"></i>
-                  </span>
-                  <span>Delete</span>
-                </button>
-              </div>
-            </div>
-          ))
+            ))
         )}
       </section>
 
@@ -106,6 +131,45 @@ export const TagManager = () => {
           </div>
         </form>
       </section>
+
+      {editTag && (
+        <div className="modal is-active">
+          <div
+            className="modal-background"
+            onClick={() => setEditTag(null)}
+          ></div>
+          <div className="modal-card">
+            <header className="modal-card-head">
+              <p className="modal-card-title">Edit Tag</p>
+              <button
+                className="delete"
+                aria-label="close"
+                onClick={() => setEditTag(null)}
+              ></button>
+            </header>
+            <section className="modal-card-body">
+              <input
+                className="input"
+                type="text"
+                value={editLabel}
+                onChange={(e) => setEditLabel(e.target.value)}
+                placeholder="Edit tag name"
+              />
+            </section>
+            <footer className="modal-card-foot">
+              <button
+                className="button is-success"
+                onClick={handleUpdateTag}
+              >
+                Save
+              </button>
+              <button className="button" onClick={() => setEditTag(null)}>
+                Cancel
+              </button>
+            </footer>
+          </div>
+        </div>
+      )}
     </article>
   );
 };
