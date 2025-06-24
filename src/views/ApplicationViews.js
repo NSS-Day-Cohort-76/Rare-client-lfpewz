@@ -12,6 +12,9 @@ import { TagManager } from "../components/tagmanager/tagmanager.jsx"
 import { CategoryManager } from "../components/categories/CatgeoryDetails.jsx"
 
 import { CommentForm } from "../components/comments/CommentForm.jsx"
+import { UserProfiles } from "../components/users/UserProfiles.jsx"
+
+import { HomePageDisplay } from "../components/home/home.jsx"
 
 export const ApplicationViews = ({ user, setUser }) => {
   return (
@@ -21,7 +24,7 @@ export const ApplicationViews = ({ user, setUser }) => {
 
       <Route element={<Authorized user={user} />}>
         {/* Default homepage route */}
-        <Route path="/" element={<DisplayAllPosts user={user} />} />
+        <Route path="/" element={<HomePageDisplay user={user} />} />
         <Route path="/allposts" element={<DisplayAllPosts user={user} />} />
 
         {/* Post Routes */}
@@ -38,6 +41,9 @@ export const ApplicationViews = ({ user, setUser }) => {
         <Route path="/tagmanager/edittag/:id" element={<TagManager user={user} />} />
         <Route path="/categorymanager" element={<CategoryManager user={user} />} />
         <Route path="/categorymanager/editcategory/:id" element={<TagManager user={user} />} />
+
+        {/* User Profiles and Stuff */}
+        <Route path="/user-profiles" element={<UserProfiles user={user}/>} />
       </Route>
     </Routes>
   )
