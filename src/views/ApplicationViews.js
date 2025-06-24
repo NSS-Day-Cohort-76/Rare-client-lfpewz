@@ -15,6 +15,7 @@ import { CommentForm } from "../components/comments/CommentForm.jsx"
 import { UserProfiles } from "../components/users/UserProfiles.jsx"
 
 import { HomePageDisplay } from "../components/home/home.jsx"
+import { DisplayMyPosts } from "../components/posts/myPosts.jsx"
 
 export const ApplicationViews = ({ user, setUser }) => {
   return (
@@ -26,7 +27,7 @@ export const ApplicationViews = ({ user, setUser }) => {
         {/* Default homepage route */}
         <Route path="/" element={<HomePageDisplay user={user} />} />
         <Route path="/allposts" element={<DisplayAllPosts user={user} />} />
-
+        <Route path="/myposts" element={<DisplayMyPosts user={user} />} />
         {/* Post Routes */}
         <Route path="/createpost" element={<CreatePost user={user} />} />
         <Route path="/posts/:postId" element={<PostDetails />} />

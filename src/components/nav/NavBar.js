@@ -41,7 +41,7 @@ export const NavBar = ({ user, setUser }) => {
       <div className="navbar-menu" ref={navbar}>
         <div className="navbar-start">
           {user && <Link to="/allposts" className="navbar-item">All Posts</Link>}
-          {user && <Link to="/" className="navbar-item">My Posts</Link>}
+          {user && <Link to="/myposts" className="navbar-item">My Posts</Link>}
           {user && <Link to="/categorymanager" className="navbar-item">Category Manager</Link>}
           {user && <Link to="/tagmanager" className="navbar-item">Tag Manager</Link>}
           {user && <Link to="/" className="navbar-item">User Manager</Link>}
