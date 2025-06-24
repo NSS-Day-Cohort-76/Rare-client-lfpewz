@@ -11,6 +11,13 @@ export const EditPost = () => {
     category_id: 1,
     image_url: ""
   })
+  const [categories, setCategories] = useState([])
+
+  useEffect(() => {
+    fetch("http://localhost:8088/categories")
+    .then(res => res.json())
+    .then(setCategories)
+  }, [])
 
   useEffect(() => {
     fetch(`http://localhost:8088/posts/${postId}`)
@@ -73,18 +80,27 @@ export const EditPost = () => {
             </div>
           </div>
 
-          <div className="field">
-            <label className="label">Category ID</label>
-            <div className="control">
-              <input
-                className="input"
-                type="number"
-                name="category_id"
-                value={post.category_id}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
+<div className="field">
+  <label className="label" htmlFor="category_id">Select Category</label>
+  <div className="control">
+    <div className="select is-fullwidth is-primary">
+      <select
+        name="category_id"
+        value={post.category_id}
+        onChange={handleChange}
+        required
+      >
+        <option value="" disabled>Select a category</option>
+        {categories.map(category => (
+          <option key={category.id} value={category.id}>
+            {category.label}
+          </option>
+        ))}
+      </select>
+    </div>
+  </div>
+</div>
+
 
           <div className="field">
             <label className="label">Image URL (optional)</label>
