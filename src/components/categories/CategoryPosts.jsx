@@ -6,6 +6,10 @@ export const CategoryPosts = () => {
   const { categoryId } = useParams();
   const [categoryPosts, setCategoryPosts] = useState([]);
 
+  // Optional: derive category label from the first post
+  const categoryLabel =
+    categoryPosts.length > 0 ? categoryPosts[0].category.label : "";
+
   useEffect(() => {
     getPostsByCategory(categoryId).then(setCategoryPosts);
   }, [categoryId]);
@@ -14,7 +18,7 @@ export const CategoryPosts = () => {
     <section className="section">
       <div className="container">
         <h1 className="title has-text-centered mb-5">
-          Posts for Category #{categoryId}
+          Posts for Category {categoryLabel ? `"${categoryLabel}"` : `#${categoryId}`}
         </h1>
 
         {categoryPosts.length === 0 ? (
@@ -29,7 +33,7 @@ export const CategoryPosts = () => {
                       {post.title}
                     </Link>
                   </h2>
-                  <p className="content">{post.content}</p>
+                  <p className="content">Posted by:{post.author}</p>
                 </div>
               </div>
             ))}
