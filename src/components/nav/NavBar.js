@@ -33,7 +33,7 @@ export const NavBar = ({ user, setUser }) => {
           <h1 className="title is-4 ml-2">Rare Publishing</h1>
         </a>
 
-        <a
+        <button
           role="button"
           className="navbar-burger"
           aria-label="menu"
@@ -44,7 +44,7 @@ export const NavBar = ({ user, setUser }) => {
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
-        </a>
+        </button>
       </div>
 
       <div className="navbar-menu" ref={navbar}>
@@ -54,7 +54,7 @@ export const NavBar = ({ user, setUser }) => {
               <Link to="/allposts" className="navbar-item">
                 All Posts
               </Link>
-              <Link to="/" className="navbar-item">
+              <Link to="/myposts" className="navbar-item">
                 My Posts
               </Link>
               <Link to="/categorymanager" className="navbar-item">

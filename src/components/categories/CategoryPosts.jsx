@@ -11,14 +11,18 @@ export const CategoryPosts = () => {
     categoryPosts.length > 0 ? categoryPosts[0].category.label : "";
 
   useEffect(() => {
-    getPostsByCategory(categoryId).then(setCategoryPosts);
+    getPostsByCategory(categoryId).then((data) => {
+      console.log("Fetched category posts:", data);
+      setCategoryPosts(Array.isArray(data) ? data : []);
+    });
   }, [categoryId]);
 
   return (
     <section className="section">
       <div className="container">
         <h1 className="title has-text-centered mb-5">
-          Posts for Category {categoryLabel ? `"${categoryLabel}"` : `#${categoryId}`}
+          Posts for Category{" "}
+          {categoryLabel ? `"${categoryLabel}"` : `#${categoryId}`}
         </h1>
 
         {categoryPosts.length === 0 ? (
