@@ -2,11 +2,13 @@ import { useEffect, useState } from "react"
 import { useNavigate, useOutletContext } from "react-router-dom"
 import { createPost } from "../../managers/PostManager"
 import { getAllCategories } from "../../managers/CategoryManager.js"
+import { GetAllTags } from "../../services/getAllTags.jsx"
 
 export const CreatePost = () => {
   const { user } = useOutletContext()
   const navigate = useNavigate()
-
+  const [allTags, setAlltags] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
   const [postData, setPostData] = useState({
     title: "",
     content: "",
@@ -17,12 +19,22 @@ export const CreatePost = () => {
   const [categories, setCategories] = useState([])
   useEffect(() => {
     getAllCategories().then(setCategories)
+    GetAllTags().then(setAlltags)
   }, [])
+
 
   const handleChange = (event) => {
     const { name, value } = event.target
     setPostData((prev) => ({ ...prev, [name]: value }))
   }
+
+  const handleTagChange = (tagId) => {
+    setSelectedTags((prev) =>
+      prev.includes(tagId)
+        ? prev.filter((id) => id !== tagId)
+        : [...prev, tagId]
+    );
+  };
 
   const handleSubmit = (event) => {
     console.log("user being passed to createPost:", user)
@@ -108,6 +120,29 @@ export const CreatePost = () => {
                 </option>
               ))}
             </select>
+          </div>
+        </div>
+      </div>
+      
+      <div className="field">
+        <label className="label">Select Tags</label>
+        <div className="control">
+          <div className="tags-list" style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
+            {allTags
+              .slice()
+              .sort((a, b) => a.label.localeCompare(b.label))
+              .map((tag) => (
+                <label key={tag.id} className="checkbox is-size-6">
+                  <input
+                    type="checkbox"
+                    value={tag.id}
+                    checked={selectedTags.includes(tag.id)}
+                    onChange={() => handleTagChange(tag.id)}
+                    style={{ marginRight: "0.5em" }}
+                  />
+                  {tag.label}
+                </label>
+              ))}
           </div>
         </div>
       </div>
