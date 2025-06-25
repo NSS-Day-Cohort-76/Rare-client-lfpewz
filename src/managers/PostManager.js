@@ -16,10 +16,28 @@ export const createPost = (postData, user) => {
     return res.json()
   })
 }
+export const approvePost = (postId, approved) => {
+  return fetch(`http://localhost:8088/posts/${postId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ approved }),
+  });
+};
 
 
-export const getAllPosts = () => {
-  return fetch("http://localhost:8088/posts").then((res) => res.json())
+export const getAllPosts = (user) => {
+  return fetch("http://localhost:8088/posts", {
+    headers: {
+      Authorization: `Token ${user.userId}`
+    }
+  }).then((res) => {
+    if (!res.ok) {
+      throw new Error("Unauthorized or failed to fetch posts")
+    }
+    return res.json()
+  })
 }
 
 export const getPostById = (postId) => {

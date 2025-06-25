@@ -21,6 +21,19 @@ export const PostDetails = () => {
     }
   }
 
+  const handleApprovalChange = (newValue) => {
+    fetch(`http://localhost:8088/posts/${post.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${user.userId}`
+      },
+      body: JSON.stringify({ approved: newValue })
+    }).then(() => {
+      setPost({ ...post, approved: newValue })
+    })
+  }
+
   useEffect(() => {
     if (postId) {
       fetch(`http://localhost:8088/posts/${postId}`)
@@ -64,8 +77,12 @@ export const PostDetails = () => {
   return (
     <section className="section">
       <div className="container">
-        <div className="box">
+        <div className={`box ${post.approved === 0 ? "has-background-warning-light" : ""}`}>
           <h1 className="title is-3 mb-4">{post.title}</h1>
+
+          {post.approved === 0 && (
+            <span className="tag is-warning is-light is-rounded mb-2">⏳ Pending Approval</span>
+          )}
 
           {post.image_url && (
             <figure className="image is-4by3 mb-5">
@@ -91,6 +108,24 @@ export const PostDetails = () => {
           <div className="content mb-5" style={{ whiteSpace: "pre-line" }}>
             <p>{post.content}</p>
           </div>
+
+          {/* Admin Approval Buttons */}
+          {user?.isStaff && post.approved === 0 && (
+            <div className="buttons mb-4">
+              <button
+                className="button is-success"
+                onClick={() => handleApprovalChange(1)}
+              >
+                ✅ Approve
+              </button>
+              <button
+                className="button is-danger"
+                onClick={() => handleApprovalChange(0)}
+              >
+                ❌ Deny
+              </button>
+            </div>
+          )}
 
           <div className="buttons">
             <button className="button is-warning is-medium" onClick={goToEdit}>

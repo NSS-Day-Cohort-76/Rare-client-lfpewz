@@ -17,6 +17,7 @@ import { CommentForm } from "../components/comments/CommentForm.jsx"
 import { HomePageDisplay } from "../components/home/home.jsx"
 import { DisplayMyPosts } from "../components/posts/myPosts.jsx"
 import { UserManager } from "../components/users/UserManager.jsx"
+import { AdminDashboard } from "../components/admin/AdminDashboard.jsx"
 
 
 export const ApplicationViews = ({ user, setUser }) => {
@@ -49,6 +50,9 @@ export const ApplicationViews = ({ user, setUser }) => {
 
         {/* User Profiles and Stuff */}
         <Route path="/user-profiles" element={<UserManager user={user}/>} />
+
+        {/* Admin View for appoving/denying posts */}
+        <Route path="/admin" element={<AdminDashboard />} />
       </Route>
     </Routes>
   )
