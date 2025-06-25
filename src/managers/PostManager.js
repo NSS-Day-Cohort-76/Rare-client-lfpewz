@@ -1,4 +1,8 @@
 export const createPost = (postData, user) => {
+  if (!user || !user.userId) {
+    return Promise.reject("❌ createPost: No user provided")
+  }
+
   console.log("Sending auth headers:", `Token ${user.userId}`);
   console.log("POST BVODY:", postData);
 
@@ -16,18 +20,13 @@ export const createPost = (postData, user) => {
     return res.json()
   })
 }
-export const approvePost = (postId, approved) => {
-  return fetch(`http://localhost:8088/posts/${postId}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ approved }),
-  });
-};
 
 
 export const getAllPosts = (user) => {
+  if (!user || !user.userId) {
+    return Promise.reject("❌ getAllPosts: No user provided")
+  }
+
   return fetch("http://localhost:8088/posts", {
     headers: {
       Authorization: `Token ${user.userId}`
@@ -39,6 +38,7 @@ export const getAllPosts = (user) => {
     return res.json()
   })
 }
+
 
 export const getPostById = (postId) => {
   return fetch(`http://localhost:8088/posts/${postId}`).then((res) =>
@@ -57,6 +57,10 @@ export const updatePost = (postId, updatedPost) => {
 }
 
 export const deletePost = (postId, user) => {
+  if (!user || !user.userId) {
+    return Promise.reject("❌ deletePost: No user provided")
+  }
+
   return fetch(`http://localhost:8088/posts/${postId}`, {
     method: "DELETE",
     headers: {
@@ -64,6 +68,7 @@ export const deletePost = (postId, user) => {
     },
   })
 }
+
 
 export const getMostRecentPost = () => {
   return fetch("http://localhost:8088/posts/mostRecentPost").then((res) => res.json())

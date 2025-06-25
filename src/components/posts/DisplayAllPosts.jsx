@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import { getAllPosts } from "../../managers/PostManager.js"
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { getAllPosts } from "../../managers/PostManager.js";
 
 export const DisplayAllPosts = ({ user }) => {
-  const [allPosts, setAllPosts] = useState([])
-  const navigate = useNavigate()
+  const [allPosts, setAllPosts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     getAllPosts(user)
@@ -18,9 +19,15 @@ export const DisplayAllPosts = ({ user }) => {
       })
   }, [user])
 
-  const sortedPosts = allPosts.slice().sort(
-    (a, b) => new Date(b.publication_date) - new Date(a.publication_date)
-  )
+  const sortedPosts = allPosts
+    .slice()
+    .sort(
+      (a, b) => new Date(b.publication_date) - new Date(a.publication_date)
+    );
+
+  const filteredPosts = sortedPosts.filter((post) =>
+    post.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="container">
@@ -46,9 +53,29 @@ export const DisplayAllPosts = ({ user }) => {
         </button>
       </div>
 
-      {sortedPosts.length > 0 ? (
+      <div className="field has-addons mb-5 is-justify-content-center">
+        <div className="control">
+          <input
+            className="input is-medium"
+            type="text"
+            placeholder="Search posts by title..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+        <div className="control">
+          <button
+            className="button is-medium is-info"
+            onClick={() => setSearchTerm("")}
+          >
+            Clear
+          </button>
+        </div>
+      </div>
+
+      {filteredPosts.length > 0 ? (
         <div className="columns is-multiline">
-          {sortedPosts.map((post) => (
+          {filteredPosts.map((post) => (
             <div
               key={post.id}
               className="column is-full-mobile is-half-tablet is-one-third-desktop"
