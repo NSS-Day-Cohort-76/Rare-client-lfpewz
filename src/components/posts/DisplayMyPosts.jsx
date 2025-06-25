@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { getAllPosts } from "../../managers/PostManager.js";
 
-export const DisplayMyPosts = () => {
+export const DisplayMyPosts = ({userId}) => {
   const [myPosts, setMyPosts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -19,7 +19,7 @@ export const DisplayMyPosts = () => {
       setMyPosts(filtered);
     });
   }, [user]);
-
+console.log("userId:", userId)
   const sortedPosts = myPosts
     .slice()
     .sort(
@@ -32,39 +32,56 @@ export const DisplayMyPosts = () => {
   return (
     <div className="container">
       <h2 className="title is-3 has-text-centered mb-5">My Posts</h2>
-
-      <div className="has-text-centered mb-6">
-        <button
-          className="button is-primary is-medium is-rounded has-shadow"
-          onClick={() => navigate("/createpost")}
-        >
-          <span className="icon">
-            <i className="fas fa-plus"></i>
-          </span>
-          <span>Create Post</span>
-        </button>
-      </div>
-      
-      <div className="field has-addons mb-5 is-justify-content-center">
-        <div className="control">
-          <input
-            className="input is-medium"
-            type="text"
-            placeholder="Search posts by title..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+      <p className="subtitle is-5 has-text-centered has-text-grey-dark">
+        Browse your posts or create a new one.
+      </p>{" "}
+      {/* Search + Create Post */}
+      <div
+        className="box mb-6"
+        style={{ border: "1px solid #dbdbdb", backgroundColor: "#f9f9f9" }}
+      >
+        <div className="columns is-vcentered is-variable is-4">
+          <div className="column is-9">
+            <div className="field has-addons">
+              <div className="control is-expanded">
+                <input
+                  className="input is-medium has-shadow"
+                  style={{
+                    backgroundColor: "#fff",
+                    border: "1px solid #b5b5b5",
+                    boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+                  }}
+                  type="text"
+                  placeholder="Search posts by title..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
+              {searchTerm && (
+                <div className="control">
+                  <button
+                    className="button is-medium is-light"
+                    onClick={() => setSearchTerm("")}
+                  >
+                    Clear
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="column is-3 has-text-right">
+            <button
+              className="button is-primary is-medium is-rounded"
+              onClick={() => navigate("/createpost")}
+            >
+              <span className="icon">
+                <i className="fas fa-plus"></i>
+              </span>
+              <span>Create Post</span>
+            </button>
+          </div>
         </div>
-        <div className="control">
-          <button
-            className="button is-medium is-info"
-            onClick={() => setSearchTerm("")}
-          >
-            Clear
-          </button>
-        </div>
       </div>
-
       {filteredPosts.length > 0 ? (
         <div className="columns is-multiline">
           {filteredPosts.map((post) => (

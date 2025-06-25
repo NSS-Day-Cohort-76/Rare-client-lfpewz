@@ -9,7 +9,6 @@ export const DisplayAllPosts = ({ user }) => {
 
   useEffect(() => {
     getAllPosts().then(setAllPosts);
-    console.log("🔍 Posts received:");
   }, []);
 
   const sortedPosts = allPosts
@@ -23,89 +22,115 @@ export const DisplayAllPosts = ({ user }) => {
   );
 
   return (
-    <div className="container">
-      <h2 className="title is-3 has-text-centered mb-5">All Posts</h2>
+    <section className="section">
+      <div className="container">
+        {/* Hero Heading */}
+        <div className="mb-6">
+          <h1 className="title is-2 has-text-centered">All Posts</h1>
+          <p className="subtitle is-5 has-text-centered has-text-grey-dark">
+            Browse recent posts or create a new one.
+          </p>
+        </div>
 
-      {/* Create Post button */}
-      <div className="has-text-centered mb-6">
-        <button
-          className="button is-primary is-medium is-rounded has-shadow"
-          onClick={() => navigate("/createpost")}
+        {/* Search + Create Post */}
+        <div
+          className="box mb-6"
+          style={{ border: "1px solid #dbdbdb", backgroundColor: "#f9f9f9" }}
         >
-          <span className="icon">
-            <i className="fas fa-plus"></i>
-          </span>
-          <span>Create Post</span>
-        </button>
-      </div>
-
-      <div className="field has-addons mb-5 is-justify-content-center">
-        <div className="control">
-          <input
-            className="input is-medium"
-            type="text"
-            placeholder="Search posts by title..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
-        <div className="control">
-          <button
-            className="button is-medium is-info"
-            onClick={() => setSearchTerm("")}
-          >
-            Clear
-          </button>
-        </div>
-      </div>
-
-      {filteredPosts.length > 0 ? (
-        <div className="columns is-multiline">
-          {filteredPosts.map((post) => (
-            <div
-              key={post.id}
-              className="column is-full-mobile is-half-tablet is-one-third-desktop"
-            >
-              <Link
-                to={`/posts/${post.id}`}
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                <div className="card is-hoverable has-shadow">
-                  <header className="card-header">
-                    <p className="card-header-title has-text-weight-semibold">
-                      {post.title}
-                    </p>
-                    <span
-                      className="tag is-info is-light card-header-icon"
-                      aria-label="category"
+          <div className="columns is-vcentered is-variable is-4">
+            <div className="column is-9">
+              <div className="field has-addons">
+                <div className="control is-expanded">
+                  <input
+                    className="input is-medium has-shadow"
+                    style={{
+                      backgroundColor: "#fff",
+                      border: "1px solid #b5b5b5",
+                      boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+                    }}
+                    type="text"
+                    placeholder="Search posts by title..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                </div>
+                {searchTerm && (
+                  <div className="control">
+                    <button
+                      className="button is-medium is-light"
+                      onClick={() => setSearchTerm("")}
                     >
-                      {post.category.label}
-                    </span>
-                  </header>
-                  <div className="card-content">
-                    <div className="content">
-                      <p className="mb-2">
-                        <strong>Author:</strong> {post.user.firstName}{" "}
-                        {post.user.lastName}
+                      Clear
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="column is-3 has-text-right">
+              <button
+                className="button is-primary is-medium is-rounded"
+                onClick={() => navigate("/createpost")}
+              >
+                <span className="icon">
+                  <i className="fas fa-plus"></i>
+                </span>
+                <span>Create Post</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Posts Grid */}
+        {filteredPosts.length > 0 ? (
+          <div className="columns is-multiline">
+            {filteredPosts.map((post) => (
+              <div
+                key={post.id}
+                className="column is-full-mobile is-half-tablet is-one-third-desktop"
+              >
+                <Link
+                  to={`/posts/${post.id}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <div className="card is-hoverable has-shadow">
+                    <header className="card-header">
+                      <p className="card-header-title has-text-weight-semibold">
+                        {post.title}
                       </p>
-                      <p className="is-size-7 has-text-grey">
-                        <em>
-                          Published on:{" "}
-                          {new Date(post.publication_date).toLocaleDateString()}
-                        </em>
-                      </p>
+                      <span
+                        className="tag is-info is-light card-header-icon"
+                        aria-label="category"
+                      >
+                        {post.category.label}
+                      </span>
+                    </header>
+                    <div className="card-content">
+                      <div className="content">
+                        <p className="mb-2">
+                          <strong>Author:</strong> {post.user.firstName}{" "}
+                          {post.user.lastName}
+                        </p>
+                        <p className="is-size-7 has-text-grey">
+                          <em>
+                            Published on:{" "}
+                            {new Date(
+                              post.publication_date
+                            ).toLocaleDateString()}
+                          </em>
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p className="notification is-warning has-text-centered">
-          No posts found.
-        </p>
-      )}
-    </div>
+                </Link>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="notification is-warning has-text-centered">
+            No posts found.
+          </p>
+        )}
+      </div>
+    </section>
   );
 };

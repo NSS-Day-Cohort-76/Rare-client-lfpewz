@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams, useNavigate, useOutletContext } from "react-router-dom"
 import { deletePost } from "../../managers/PostManager.js"
 import { CommentList } from "../comments/CommentList"
+import { ReactionSelector } from "../reactions/ReactionSelector.jsx"
 
 export const PostDetails = () => {
   const { postId } = useParams()
@@ -9,6 +10,7 @@ export const PostDetails = () => {
   const [notFound, setNotFound] = useState(false)
   const navigate = useNavigate()
   const { user } = useOutletContext()
+  const userId = user?.id;
 
   const goToEdit = () => navigate(`/posts/${post.id}/edit`)
 
@@ -36,6 +38,7 @@ export const PostDetails = () => {
         })
     }
   }, [postId])
+
 
   if (notFound) {
     return (
@@ -88,6 +91,8 @@ export const PostDetails = () => {
             </div>
           </div>
 
+          <ReactionSelector postId={postId} userId={user?.id} /> 
+          
           <div className="content mb-5" style={{ whiteSpace: "pre-line" }}>
             <p>{post.content}</p>
           </div>
