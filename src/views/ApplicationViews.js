@@ -9,13 +9,13 @@ import { PostDetails } from "../components/posts/PostDetails.jsx"
 import { DisplayAllPosts } from "../components/posts/DisplayAllPosts.jsx"
 import { CategoryPosts } from "../components/categories/CategoryPosts.jsx"
 
-import { TagManager } from "../components/tagmanager/tagmanager.jsx"
+import { TagManager } from "../components/tagmanager/TagManager.jsx"
 import { CategoryManager } from "../components/categories/CategoryDetails.jsx"
 
 import { CommentForm } from "../components/comments/CommentForm.jsx"
 
 import { HomePageDisplay } from "../components/home/home.jsx"
-import { DisplayMyPosts } from "../components/posts/myPosts.jsx"
+import { DisplayMyPosts } from "../components/posts/DisplayMyPosts.jsx"
 import { UserManager } from "../components/users/UserManager.jsx"
 
 

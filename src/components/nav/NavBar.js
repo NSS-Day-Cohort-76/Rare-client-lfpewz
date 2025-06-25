@@ -54,7 +54,7 @@ export const NavBar = ({ user, setUser }) => {
               <Link to="/allposts" className="navbar-item">
                 All Posts
               </Link>
-              <Link to="/" className="navbar-item">
+              <Link to="/myposts" className="navbar-item">
                 My Posts
               </Link>
               <Link to="/categorymanager" className="navbar-item">
