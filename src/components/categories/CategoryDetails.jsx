@@ -15,43 +15,50 @@ export const CategoryManager = (user) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getAllCategories().then(setAllCategories);
-  }, [user]);
+  getAllCategories().then((data) =>
+    setAllCategories(data.sort((a, b) => a.label.localeCompare(b.label)))
+  );
+}, [user]);
+
 
   const handleSubmitCategory = (e) => {
     e.preventDefault();
     if (!category.trim()) return;
     CreateNewCategory(category)
-      .then(() => {
-        setCategory("");
-        return getAllCategories();
-      })
-      .then(setAllCategories)
-      .catch((error) => {
-        console.error("Error creating category:", error);
-        // Optionally show user-facing error message
-      });
+  .then(() => {
+    setCategory("");
+    return getAllCategories();
+  })
+  .then((data) =>
+    setAllCategories(data.sort((a, b) => a.label.localeCompare(b.label)))
+  )
   };
 
   const handleDeleteCategory = (id) => {
     DeleteCategory(id)
       .then(() => getAllCategories())
-      .then(setAllCategories);
-  };
+.then((data) =>
+  setAllCategories(data.sort((a, b) => a.label.localeCompare(b.label)))
+)};
 
-  const handleUpdateCategory = () => {
-    if (!editLabel.trim()) return;
-    updateCategory(editCategory.id, { label: editLabel })
-      .then(() => {
-        setEditCategory(null); // close modal
-        return getAllCategories();
-      })
-      .then(setAllCategories)
-      .catch((err) => {
-        console.error("Update failed", err);
-        // optional: show user feedback
-      });
-  };
+const handleUpdateCategory = () => {
+  if (!editLabel.trim()) return;
+
+  updateCategory(editCategory.id, { label: editLabel })
+    .then(() => {
+      setEditCategory(null); // close modal
+      return getAllCategories();
+    })
+    .then((data) => {
+      const sorted = data.sort((a, b) => a.label.localeCompare(b.label));
+      setAllCategories(sorted);
+    })
+    .catch((err) => {
+      console.error("Update failed", err);
+      // optional: show user feedback
+    });
+};
+
 
   const handleEditCategory = (category) => {
     setEditCategory(category); // object with id and label
