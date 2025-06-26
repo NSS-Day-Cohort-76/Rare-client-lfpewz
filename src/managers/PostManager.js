@@ -1,4 +1,8 @@
 export const createPost = (postData, user) => {
+  if (!user || !user.userId) {
+    return Promise.reject("❌ createPost: No user provided")
+  }
+
   console.log("Sending auth headers:", `Token ${user.userId}`);
   console.log("POST BVODY:", postData);
 
@@ -18,9 +22,23 @@ export const createPost = (postData, user) => {
 }
 
 
-export const getAllPosts = () => {
-  return fetch("http://localhost:8088/posts").then((res) => res.json())
+export const getAllPosts = (user) => {
+  if (!user || !user.userId) {
+    return Promise.reject("❌ getAllPosts: No user provided")
+  }
+
+  return fetch("http://localhost:8088/posts", {
+    headers: {
+      Authorization: `Token ${user.userId}`
+    }
+  }).then((res) => {
+    if (!res.ok) {
+      throw new Error("Unauthorized or failed to fetch posts")
+    }
+    return res.json()
+  })
 }
+
 
 export const getPostById = (postId) => {
   return fetch(`http://localhost:8088/posts/${postId}`).then((res) =>
@@ -39,6 +57,10 @@ export const updatePost = (postId, updatedPost) => {
 }
 
 export const deletePost = (postId, user) => {
+  if (!user || !user.userId) {
+    return Promise.reject("❌ deletePost: No user provided")
+  }
+
   return fetch(`http://localhost:8088/posts/${postId}`, {
     method: "DELETE",
     headers: {
@@ -46,6 +68,7 @@ export const deletePost = (postId, user) => {
     },
   })
 }
+
 
 export const getMostRecentPost = () => {
   return fetch("http://localhost:8088/posts/mostRecentPost").then((res) => res.json())

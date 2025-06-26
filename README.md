@@ -98,7 +98,7 @@ Rare-client-lfpewz/
 
 ## Database Schema
 
-- **Users**: id, first_name, last_name, email, username, password, bio, isStaff, etc.
+- **Users**: id, first_name, last_name, email, username, password, bio, is_staff, etc.
 - **Posts**: id, user_id, category_id, title, content, image_url, publication_date, approved
 - **Tags**: id, label
 - **Categories**: id, label
@@ -135,7 +135,7 @@ See `loaddata.sql` for full schema and example data.
 ## Frontend Usage
 
 - **Register/Login:**  
-  User info is stored in localStorage under the key `rare_user` as `{ id: userId, isStaff: ... }`.
+  User info is stored in localStorage under the key `rare_user` as `{ id: userId, is_staff: ... }`.
 - **Navigation:**  
   NavBar shows/hides links based on login state.
 - **Posts:**  
@@ -174,8 +174,8 @@ See `loaddata.sql` for full schema and example data.
   Ensure all API endpoints return JSON (except 204 No Content).
 
 - **Login/Register not working:**  
-  Backend must return `{ valid: true, user_id: ..., isStaff: ... }` for successful login/register.  
-  Frontend expects `rare_user` in localStorage as `{ id: userId, isStaff: ... }`.
+  Backend must return `{ valid: true, user_id: ..., is_staff: ... }` for successful login/register.  
+  Frontend expects `rare_user` in localStorage as `{ id: userId, is_staff: ... }`.
 
 - **Posts/tags/categories not displaying:**  
   Ensure backend returns arrays, not objects.  

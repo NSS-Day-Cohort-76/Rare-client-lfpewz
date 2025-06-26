@@ -7,15 +7,21 @@ export const DisplayMyPosts = () => {
   const navigate = useNavigate();
   // Get user from Outlet context (provided by <Authorized />)
   const { user } = useOutletContext();
-  useEffect(() => {
-    getAllPosts().then((posts) => {
-      // Filter posts by current user
+useEffect(() => {
+  if (!user || !user.userId) return; // 👻 silent protection
+
+  getAllPosts(user)
+    .then((posts) => {
       const filtered = posts.filter(
         (post) => post.user?.id === user.userId || post.user === user.userId
       );
       setMyPosts(filtered);
+    })
+    .catch((err) => {
+      console.error("❌ Failed to load user posts:", err);
     });
-  }, [user]);
+}, [user]);
+
   const sortedPosts = myPosts
     .slice()
     .sort(
