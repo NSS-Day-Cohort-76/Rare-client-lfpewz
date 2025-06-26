@@ -17,14 +17,13 @@ export const ReactionSelector = ({ post, user, setPost }) => {
     console.log("userId:", userId, "postId:", postId);
 
     getAllReactions().then(setReactions);
-
     if (postId && userId) {
       getUserReaction(postId, userId).then((reaction) => {
         if (reaction) setSelectedReactionId(reaction.reaction_id);
       });
     }
   }, [postId, userId]);
-
+console.log(reactions.image_url);
   const handleReactionClick = (reactionId) => {
     if (reactionId === selectedReactionId) return;
 
