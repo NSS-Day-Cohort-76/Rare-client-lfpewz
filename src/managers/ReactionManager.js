@@ -27,14 +27,13 @@ export function addOrUpdatePostReaction({ post_id, user_id, reaction_id }) {
         });
       }
     })
-    .then((res) => {
-      if (!res.ok) {
-        return res.json().then((err) => Promise.reject(err));
-      }
-      return res.json();
-    })
-    .catch((err) => {
-      console.error("Failed to add or update reaction:", err);
-      throw err;
-    });
+    .then(async (res) => {
+  if (!res.ok) {
+    const errorText = await res.text(); // Show server error message
+    throw new Error(errorText || "Request failed");
+  }
+
+  const text = await res.text(); // ← try to read response safely
+  return text ? JSON.parse(text) : {}; // ← only parse if not empty
+})
 }
