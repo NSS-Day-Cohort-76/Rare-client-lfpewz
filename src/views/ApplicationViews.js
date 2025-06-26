@@ -34,8 +34,8 @@ export const ApplicationViews = ({ user, setUser }) => {
         <Route path="/allposts" element={<DisplayAllPosts user={user} />} />
         <Route path="/myposts" element={<DisplayMyPosts user={user} />} />
         <Route path="/createpost" element={<CreatePost user={user} />} />
-        <Route path="/posts/:postId" element={<PostDetails />} />
-        <Route path="/posts/:postId/edit" element={<EditPost />} />
+        <Route path="/posts/:postId" element={<PostDetails user={user}/>} />
+        <Route path="/posts/:postId/edit" element={<EditPost user={user}/>} />
 
         {/* Comment Form Routes */}
         <Route path="/posts/:postId/comments/new" element={<CommentForm />} />

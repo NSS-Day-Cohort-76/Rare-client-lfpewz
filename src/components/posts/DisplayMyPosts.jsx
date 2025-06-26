@@ -1,45 +1,53 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { getAllPosts } from "../../managers/PostManager.js";
+
 export const DisplayMyPosts = () => {
   const [myPosts, setMyPosts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   // Get user from Outlet context (provided by <Authorized />)
   const { user } = useOutletContext();
-useEffect(() => {
-  if (!user || !user.userId) return; // 👻 silent protection
 
-  getAllPosts(user)
-    .then((posts) => {
-      const filtered = posts.filter(
-        (post) => post.user?.id === user.userId || post.user === user.userId
-      );
-      setMyPosts(filtered);
-    })
-    .catch((err) => {
-      console.error("❌ Failed to load user posts:", err);
-    });
-}, [user]);
+  useEffect(() => {
+    if (!user || (!user.userId && !user.id)) return; // silent protection
+
+    getAllPosts(user)
+      .then((posts) => {
+        const filtered = posts.filter(
+          (post) =>
+            post.user?.id === user.userId ||
+            post.user === user.userId ||
+            post.user?.id === user.id ||
+            post.user === user.id
+        );
+        setMyPosts(filtered);
+      })
+      .catch((err) => {
+        console.error("❌ Failed to load user posts:", err);
+      });
+  }, [user]);
 
   const sortedPosts = myPosts
     .slice()
     .sort(
       (a, b) => new Date(b.publication_date) - new Date(a.publication_date)
     );
+
   const filteredPosts = sortedPosts.filter((post) =>
     post.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
   return (
     <div className="container">
       <h2 className="title is-3 has-text-centered mb-5">My Posts</h2>
       <p className="subtitle is-5 has-text-centered has-text-grey-dark">
         Browse your posts or create a new one.
-      </p>{" "}
+      </p>
       {/* Search + Create Post */}
       <div
         className="box mb-6"
-        style={{ border: "1px solid #DBDBDB", backgroundColor: "#F9F9F9" }}
+        style={{ border: "1px solid #dbdbdb", backgroundColor: "#f9f9f9" }}
       >
         <div className="columns is-vcentered is-variable is-4">
           <div className="column is-9">
@@ -49,7 +57,7 @@ useEffect(() => {
                   className="input is-medium has-shadow"
                   style={{
                     backgroundColor: "#fff",
-                    border: "1px solid #B5B5B5",
+                    border: "1px solid #b5b5b5",
                     boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
                   }}
                   type="text"
