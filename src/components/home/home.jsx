@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import { getMostRecentPost } from "../../managers/PostManager.js";
-import { Link,useNavigate } from "react-router-dom";
+import { Link,useNavigate, useOutletContext } from "react-router-dom";
 
-export const HomePageDisplay = () => {
+export const HomePageDisplay = ({}) => {
   const [mostRecentPost, setMostRecentPost] = useState({});
+  const { user } = useOutletContext();
+  const userId = user?.id
   const navigate = useNavigate()
   useEffect(() => {
     getMostRecentPost().then(setMostRecentPost);
-    console.log("🔍 Most Recent Post received:");
-  }, []);
+  }, [userId]);
+console.log("userId:", userId)
 
   return (
     <section className="section">
