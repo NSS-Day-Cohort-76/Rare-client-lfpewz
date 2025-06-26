@@ -30,7 +30,9 @@ export const PostDetails = () => {
       },
       body: JSON.stringify({ approved: newValue })
     }).then(() => {
-      setPost({ ...post, approved: newValue })
+      fetch(`http://localhost:8088/posts/${post.id}`)
+        .then(res => res.json())
+        .then(data => setPost(data))
     })
   }
 
@@ -50,6 +52,13 @@ export const PostDetails = () => {
     }
   }, [postId])
 
+  useEffect(() => {
+    if (post) {
+      console.log("🧪 PostDetails user:", user)
+      console.log("🧪 PostDetails post.approved:", post.approved)
+    }
+  }, [post, user])
+
   if (notFound) {
     return (
       <section className="section">
@@ -65,6 +74,19 @@ export const PostDetails = () => {
       <section className="section">
         <div className="container has-text-centered">
           <p className="is-size-5">Loading post...</p>
+        </div>
+      </section>
+    )
+  }
+
+  // Denied post: Only show message to author (unless admin)
+  if (post.approved === -1 && (user.id === post.user_id || user.isStaff)) {
+    return (
+      <section className="section">
+        <div className="container has-text-centered">
+          <div className="notification is-danger is-light">
+            This post was deleted by the admins.
+          </div>
         </div>
       </section>
     )
@@ -120,7 +142,7 @@ export const PostDetails = () => {
               </button>
               <button
                 className="button is-danger"
-                onClick={() => handleApprovalChange(0)}
+                onClick={() => handleApprovalChange(-1)}
               >
                 ❌ Deny
               </button>

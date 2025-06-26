@@ -8,7 +8,7 @@ export const AdminDashboard = () => {
   useEffect(() => {
     fetch("http://localhost:8088/posts", {
       headers: {
-        Authorization: `Token ${user}`
+        Authorization: `Token ${user.id}`
       }
     })
       .then((res) => res.json())
@@ -16,16 +16,13 @@ export const AdminDashboard = () => {
   }, [user])
 
   const handleApproval = (postId, approved) => {
-    fetch("http://localhost:8088/posts/approve", {
+    fetch(`http://localhost:8088/posts/${postId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Token ${user}`
+        Authorization: `Token ${user.id}`
       },
-      body: JSON.stringify({
-        post_id: postId,
-        approved
-      })
+      body: JSON.stringify({ approved })
     }).then(() => {
       setPosts((prev) =>
         prev.map((p) => (p.id === postId ? { ...p, approved } : p))
@@ -33,15 +30,15 @@ export const AdminDashboard = () => {
     })
   }
 
-  const unapprovedPosts = posts.filter((p) => p.approved === 0)
+  const reviewablePosts = posts.filter((p) => p.approved !== 1)
 
   return (
     <section className="section">
       <h1 className="title">Admin Post Approval</h1>
-      {unapprovedPosts.length === 0 ? (
-        <p>No pending posts 🎉</p>
+      {reviewablePosts.length === 0 ? (
+        <p>No pending or denied posts 🎉</p>
       ) : (
-        unapprovedPosts.map((post) => (
+        reviewablePosts.map((post) => (
           <div key={post.id} className="box">
             <h2 className="title is-5">{post.title}</h2>
             <p>{post.content}</p>
@@ -56,8 +53,14 @@ export const AdminDashboard = () => {
                 Approve ✅
               </button>
               <button
-                className="button is-danger is-small"
+                className="button is-warning is-small"
                 onClick={() => handleApproval(post.id, 0)}
+              >
+                Un-approve ⏳
+              </button>
+              <button
+                className="button is-danger is-small"
+                onClick={() => handleApproval(post.id, -1)}
               >
                 Deny ❌
               </button>

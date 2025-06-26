@@ -25,7 +25,6 @@ export const Login = ({ user, setUser }) => {
           const userObj = {
             userId: res.user_id,    // use 'id' as the key
             isStaff: res.is_staff,
-            token: res.token
             // valid: true
         }
         setUser(userObj) // This updates state and localStorage
