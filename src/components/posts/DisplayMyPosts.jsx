@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { getAllPosts } from "../../managers/PostManager.js";
 
-export const DisplayMyPosts = ({userId}) => {
+export const DisplayMyPosts = () => {
   const [myPosts, setMyPosts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
   const navigate = useNavigate();
   // Get user from Outlet context (provided by <Authorized />)
   const { user } = useOutletContext();
+  const userId = user?.id
 
   useEffect(() => {
     getAllPosts().then((posts) => {

@@ -24,6 +24,7 @@ export const PostDetails = () => {
   }
 
   useEffect(() => {
+      console.log("📦 PostDetails userId:", userId, "postId:", postId);
     if (postId) {
       fetch(`http://localhost:8088/posts/${postId}`)
         .then(res => {
@@ -37,7 +38,7 @@ export const PostDetails = () => {
           if (data) setPost(data)
         })
     }
-  }, [postId])
+  }, [postId, userId])
 
 
   if (notFound) {
@@ -91,7 +92,7 @@ export const PostDetails = () => {
             </div>
           </div>
 
-          <ReactionSelector postId={postId} userId={user?.id} /> 
+          <ReactionSelector post={post} user={user} setPost={setPost} /> 
           
           <div className="content mb-5" style={{ whiteSpace: "pre-line" }}>
             <p>{post.content}</p>
