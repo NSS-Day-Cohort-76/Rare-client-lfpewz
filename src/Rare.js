@@ -21,7 +21,6 @@
 //   </>
 // }
 
-
 import { useState } from "react";
 import { ApplicationViews } from "./views/ApplicationViews";
 import { NavBar } from "./components/nav/NavBar.js";
@@ -33,15 +32,26 @@ export const Rare = () => {
   });
 
   const setUser = (newUser) => {
-    // ✅ Normalize userId → id
+    if (!newUser) {
+      localStorage.removeItem("rare_user");
+      setUserState(null);
+      return;
+    }
+
     const normalizedUser = {
       ...newUser,
-      id: newUser.id || newUser.userId, // use existing 'id' or fall back to 'userId'
+      id: newUser?.id || newUser?.userId,
     };
 
     localStorage.setItem("rare_user", JSON.stringify(normalizedUser));
     setUserState(normalizedUser);
   };
+
+  // Store the user object in localStorage and update state
+  // const setUser = (newUser) => {
+  //   localStorage.setItem('rare_user', JSON.stringify(newUser))
+  //   setUserState(newUser)
+  // }
 
   return (
     <>

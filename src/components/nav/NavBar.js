@@ -20,6 +20,7 @@ export const NavBar = ({ user, setUser }) => {
     document.body.classList.toggle("dark-mode");
     setDarkMode(!darkMode);
   };
+  console.log("👤 NavBar user state:", user);
 
   return (
     <nav
@@ -63,9 +64,6 @@ export const NavBar = ({ user, setUser }) => {
               <Link to="/tagmanager" className="navbar-item">
                 Tag Manager
               </Link>
-              <Link to="/" className="navbar-item">
-                User Manager
-              </Link>
             </>
           )}
           {user?.isStaff && (
@@ -87,12 +85,12 @@ export const NavBar = ({ user, setUser }) => {
                 {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
               </button>
 
-              {user ? (
+              {user?.id ? (
                 <button
                   className="button is-outlined"
                   onClick={() => {
-                    setUser("");
-                    navigate("/login");
+                    setUser(null); // not ""
+                    navigate("/");
                   }}
                 >
                   Logout
@@ -114,4 +112,3 @@ export const NavBar = ({ user, setUser }) => {
     </nav>
   );
 };
-

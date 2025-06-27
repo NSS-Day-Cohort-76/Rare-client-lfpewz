@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../managers/AuthManager";
 
@@ -7,34 +7,43 @@ export const Login = ({ user, setUser }) => {
   const password = useRef();
   const navigate = useNavigate();
   const [isUnsuccessful, setIsUnsuccessful] = useState(false);
-  //const [token, setTokenState] = useState(localStorage.getItem('auth_token')) // pls don't break
+
+  useEffect(() => {
+    if (user?.id) {
+      navigate("/");
+    }
+  }, [user, navigate]);
 
   const handleLogin = (e) => {
     e.preventDefault();
 
-    const user = {
+    const credentials = {
       username: username.current.value,
       password: password.current.value,
     };
 
+    loginUser(credentials).then((res) => {
+      console.log("🔐 Login response:", res);
 
-      // ...existing code...
-      loginUser(user).then((res) => {
-          console.log(res); // <-- Add this line
-        if ("valid" in res && res.valid) {
-          const userObj = {
-            userId: res.user_id,    // use 'id' as the key
-            isStaff: res.is_staff,
-            // valid: true
-        }
-        setUser(userObj) // This updates state and localStorage
-        console.log("✅ Logged in user:", userObj)
+      if (res?.valid) {
+        const userObj = {
+          userId: res.user_id,
+          id: res.user_id, // ensures compatibility with user.id usage
+          isStaff: res.is_staff,
+          valid: true,
+        };
 
-          navigate("/")    // Redirect after login
-        } else {
-          setIsUnsuccessful(true)
-        }
-      })}
+        // ✅ Save to state and localStorage
+        setUser(userObj);
+        localStorage.setItem("rare_user", JSON.stringify(userObj));
+        console.log("✅ Logged in user:", userObj);
+
+        navigate("/");
+      } else {
+        setIsUnsuccessful(true);
+      }
+    });
+  };
 
   return (
     <section className="columns is-centered">
@@ -45,14 +54,14 @@ export const Login = ({ user, setUser }) => {
         <div className="field">
           <label className="label">Username</label>
           <div className="control">
-            <input className="input" type="text" ref={username} />
+            <input className="input" type="text" ref={username} required />
           </div>
         </div>
 
         <div className="field">
           <label className="label">Password</label>
           <div className="control">
-            <input className="input" type="password" ref={password} />
+            <input className="input" type="password" ref={password} required />
           </div>
         </div>
 
@@ -63,15 +72,14 @@ export const Login = ({ user, setUser }) => {
             </button>
           </div>
           <div className="control">
-            <Link to="/register" className="button is-link is-light">
+            <Link to="/register" className="button is-light">
               Cancel
             </Link>
           </div>
         </div>
-        {isUnsuccessful ? (
+
+        {isUnsuccessful && (
           <p className="help is-danger">Username or password not valid</p>
-        ) : (
-          ""
         )}
       </form>
     </section>

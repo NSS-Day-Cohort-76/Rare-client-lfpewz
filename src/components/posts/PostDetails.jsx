@@ -1,67 +1,68 @@
-import { useEffect, useState } from "react"
-import { useParams, useNavigate, useOutletContext } from "react-router-dom"
-import { deletePost } from "../../managers/PostManager.js"
-import { CommentList } from "../comments/CommentList"
-import { ReactionSelector } from "../reactions/ReactionSelector.jsx"
+import { useEffect, useState } from "react";
+import { useParams, useNavigate, useOutletContext } from "react-router-dom";
+import { deletePost } from "../../managers/PostManager.js";
+import { CommentList } from "../comments/CommentList";
+import { ReactionSelector } from "../reactions/ReactionSelector.jsx";
 
 export const PostDetails = () => {
-  const { postId } = useParams()
-  const [post, setPost] = useState(null)
-  const [notFound, setNotFound] = useState(false)
-  const navigate = useNavigate()
-  const { user } = useOutletContext()
+  const { postId } = useParams();
+  const [post, setPost] = useState(null);
+  const [notFound, setNotFound] = useState(false);
+  const navigate = useNavigate();
+  const { user } = useOutletContext();
   const userId = user?.id;
 
-  const goToEdit = () => navigate(`/posts/${post.id}/edit`)
+  const goToEdit = () => navigate(`/posts/${post.id}/edit`);
 
   const handleDelete = () => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this post?")
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this post?"
+    );
     if (confirmDelete) {
       deletePost(post.id, user).then(() => {
-        navigate("/allposts")
-      })
+        navigate("/allposts");
+      });
     }
-  }
+  };
 
   const handleApprovalChange = (newValue) => {
     fetch(`http://localhost:8088/posts/${post.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Token ${user.userId}`
+        Authorization: `Token ${user.userId}`,
       },
-      body: JSON.stringify({ approved: newValue })
+      body: JSON.stringify({ approved: newValue }),
     }).then(() => {
       fetch(`http://localhost:8088/posts/${post.id}`)
-        .then(res => res.json())
-        .then(data => setPost(data))
-    })
-  }
+        .then((res) => res.json())
+        .then((data) => setPost(data));
+    });
+  };
 
   useEffect(() => {
-      console.log("📦 PostDetails userId:", userId, "postId:", postId);
+    console.log("📦 PostDetails userId:", userId, "postId:", postId);
     if (postId) {
       fetch(`http://localhost:8088/posts/${postId}`)
-        .then(res => {
+        .then((res) => {
           if (!res.ok) {
-            setNotFound(true)
-            return null
+            setNotFound(true);
+            return null;
           }
-          return res.json()
+          return res.json();
         })
-        .then(data => {
-          if (data) setPost(data)
-        })
+        .then((data) => {
+          if (data) setPost(data);
+        });
     }
-  }, [postId, userId])
-
+  }, [postId, userId]);
 
   useEffect(() => {
     if (post) {
-      console.log("🧪 PostDetails user:", user)
-      console.log("🧪 PostDetails post.approved:", post.approved)
+      console.log("🧪 PostDetails user:", user);
+      console.log("🧪 PostDetails post.approved:", post.approved);
     }
-  }, [post, user])
+  }, [post, user]);
 
   if (notFound) {
     return (
@@ -70,7 +71,7 @@ export const PostDetails = () => {
           <p className="has-text-danger is-size-4">🚫 Post not found.</p>
         </div>
       </section>
-    )
+    );
   }
 
   if (!post) {
@@ -80,11 +81,11 @@ export const PostDetails = () => {
           <p className="is-size-5">Loading post...</p>
         </div>
       </section>
-    )
+    );
   }
 
   // Denied post: Only show message to author (unless admin)
-  if (post.approved === -1 && (user.id === post.user_id || user.isStaff)) {
+  if (post.approved === -1 && (user?.id === post.user_id || user.isStaff)) {
     return (
       <section className="section">
         <div className="container has-text-centered">
@@ -93,26 +94,39 @@ export const PostDetails = () => {
           </div>
         </div>
       </section>
-    )
+    );
   }
 
   const formattedDate = post.publication_date
     ? new Date(post.publication_date).toLocaleDateString()
-    : "Unknown"
+    : "Unknown";
 
   return (
     <section className="section">
       <div className="container">
-        <div className={`box ${post.approved === 0 ? "has-background-warning-light" : ""}`}>
+        <div
+          className={`box ${
+            post.approved === 0 ? "has-background-warning-light" : ""
+          }`}
+        >
           <h1 className="title is-3 mb-4">{post.title}</h1>
 
           {post.approved === 0 && (
-            <span className="tag is-warning is-light is-rounded mb-2">⏳ Pending Approval</span>
+            <span className="tag is-warning is-light is-rounded mb-2">
+              ⏳ Pending Approval
+            </span>
           )}
 
           {post.image_url && (
-            <figure className="image is-4by3 mb-5">
-              <img src={post.image_url} alt={post.title} style={{ objectFit: "cover" }} />
+            <figure
+              className="image mb-5"
+              style={{ maxWidth: "400px", margin: "0 auto" }}
+            >
+              <img
+                src={post.image_url}
+                alt={post.title}
+                style={{ objectFit: "cover", width: "100%" }}
+              />
             </figure>
           )}
 
@@ -131,8 +145,8 @@ export const PostDetails = () => {
             </div>
           </div>
 
-          <ReactionSelector post={post} user={user} setPost={setPost} /> 
-          
+          <ReactionSelector post={post} user={user} setPost={setPost} />
+
           <div className="content mb-5" style={{ whiteSpace: "pre-line" }}>
             <p>{post.content}</p>
           </div>
@@ -159,7 +173,10 @@ export const PostDetails = () => {
             <button className="button is-warning is-medium" onClick={goToEdit}>
               Edit
             </button>
-            <button className="button is-danger is-medium" onClick={handleDelete}>
+            <button
+              className="button is-danger is-medium"
+              onClick={handleDelete}
+            >
               Delete
             </button>
           </div>
@@ -172,5 +189,5 @@ export const PostDetails = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
