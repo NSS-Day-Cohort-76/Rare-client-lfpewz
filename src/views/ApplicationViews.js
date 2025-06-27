@@ -9,7 +9,7 @@ import { PostDetails } from "../components/posts/PostDetails.jsx"
 import { DisplayAllPosts } from "../components/posts/DisplayAllPosts.jsx"
 import { CategoryPosts } from "../components/categories/CategoryPosts.jsx"
 
-import { TagManager } from "../components/tagmanager/tagmanager.jsx"
+import { TagManager } from "../components/tagmanager/TagManager.jsx"
 import { CategoryManager } from "../components/categories/CategoryDetails.jsx"
 
 import { CommentForm } from "../components/comments/CommentForm.jsx"
@@ -17,7 +17,8 @@ import { CommentForm } from "../components/comments/CommentForm.jsx"
 import { HomePageDisplay } from "../components/home/home.jsx"
 import { DisplayMyPosts } from "../components/posts/DisplayMyPosts.jsx"
 import { UserManager } from "../components/users/UserManager.jsx"
-
+import { AdminDashboard } from "../components/admin/AdminDashboard.jsx"
+import { UserProfile } from "../components/users/UserProfile.jsx"
 
 export const ApplicationViews = ({ user, setUser }) => {
   return (
@@ -48,8 +49,13 @@ export const ApplicationViews = ({ user, setUser }) => {
         <Route path="/posts/:postId" element={<PostDetails />} />
         <Route path="/categorymanager/editcategory/:id" element={<TagManager user={user} />} />
 
-        {/* User Profiles and Stuff */}
+        {/* User Profiles and Stuff - I believe route below is now obsolete and should be removved?*/}
         <Route path="/user-profiles" element={<UserManager user={user}/>} />
+        {/* user profiles page below! */}
+        <Route path="/users/:userId" element={<UserProfile />} />
+
+        {/* Admin View for appoving/denying posts */}
+        <Route path="/admin" element={<AdminDashboard />} />
       </Route>
     </Routes>
   )

@@ -5,27 +5,35 @@ import { getAllPosts } from "../../managers/PostManager.js";
 export const DisplayMyPosts = () => {
   const [myPosts, setMyPosts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-
   const navigate = useNavigate();
   // Get user from Outlet context (provided by <Authorized />)
   const { user } = useOutletContext();
-  const userId = user?.id
 
   useEffect(() => {
-    getAllPosts().then((posts) => {
-      // Filter posts by current user
-      const filtered = posts.filter(
-        (post) => post.user?.id === user.userId || post.user === user.userId
-      );
-      setMyPosts(filtered);
-    });
+    if (!user || (!user.userId && !user.id)) return; // silent protection
+
+    getAllPosts(user)
+      .then((posts) => {
+        const filtered = posts.filter(
+          (post) =>
+            post.user?.id === user.userId ||
+            post.user === user.userId ||
+            post.user?.id === user.id ||
+            post.user === user.id
+        );
+        setMyPosts(filtered);
+      })
+      .catch((err) => {
+        console.error("❌ Failed to load user posts:", err);
+      });
   }, [user]);
-console.log("userId:", userId)
+
   const sortedPosts = myPosts
     .slice()
     .sort(
       (a, b) => new Date(b.publication_date) - new Date(a.publication_date)
     );
+
   const filteredPosts = sortedPosts.filter((post) =>
     post.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -35,7 +43,7 @@ console.log("userId:", userId)
       <h2 className="title is-3 has-text-centered mb-5">My Posts</h2>
       <p className="subtitle is-5 has-text-centered has-text-grey-dark">
         Browse your posts or create a new one.
-      </p>{" "}
+      </p>
       {/* Search + Create Post */}
       <div
         className="box mb-6"
