@@ -1,0 +1,43 @@
+.box.has-shadow {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.2s ease;
+  border-radius: 8px;
+}
+
+.box.has-shadow:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.has-text-link {
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+
+.has-text-link:hover {
+  color: #276cda;
+  text-decoration: underline;
+}
+
+/* Make category names larger and more prominent */
+.level-left p {
+  font-size: 1.25rem; /* larger font size */
+  font-weight: 600;   /* semi-bold */
+  color: #276cda;     /* keep consistent link color */
+  margin: 0;          /* remove default margins */
+}
+
+/* Buttons smaller font size to contrast with category names */
+.level .button {
+  font-size: 0.875rem;
+  color: #363636;
+  transition: background-color 0.2s ease;
+}
+
+/* Optional: Add some spacing between category name and buttons */
+.level-left,
+.level-right {
+  align-items: center;
+}
+.level {
+  gap: 0.75rem; /* spacing between left and right */
+}

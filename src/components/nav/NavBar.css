@@ -1,3 +1,138 @@
 .navbar-item img {
    max-height: 3rem;
 }
+
+
+/* neobrutalist css below optional */
+
+.nb-navbar {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 2rem;
+  background-color: var(--card-bg);
+  border-bottom: 4px solid var(--border-color);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+}
+
+.nb-navbar-brand {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nb-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.nb-logo-img {
+  height: 3rem;
+  margin-right: 0.75rem;
+  border: 3px solid var(--border-color);
+}
+
+.nb-site-title {
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+/* Burger */
+.nb-burger {
+  background: none;
+  border: none;
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.nb-burger span {
+  height: 3px;
+  width: 25px;
+  background-color: var(--text-color);
+  margin: 4px 0;
+}
+
+/* Navbar Menu */
+.nb-navbar-menu {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.nb-navbar-start,
+.nb-navbar-end {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.nb-nav-item {
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--text-color);
+  border: 2px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  background-color: var(--bg-color);
+  box-shadow: 4px 4px 0 var(--shadow-color);
+  transition: background-color var(--transition);
+}
+
+.nb-nav-item:hover {
+  background-color: var(--primary-color);
+}
+
+.nb-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.nb-button {
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border: 3px solid var(--border-color);
+  background-color: var(--primary-color);
+  box-shadow: 4px 4px 0 var(--shadow-color);
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--text-color);
+  transition: background-color var(--transition);
+}
+
+.nb-button:hover {
+  background-color: var(--primary-hover);
+}
+
+.nb-button.outline {
+  background-color: var(--card-bg);
+}
+
+.nb-button.accent {
+  background-color: #00d1b2;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .nb-burger {
+    display: flex;
+  }
+
+  .nb-navbar-menu {
+    display: none;
+    flex-direction: column;
+    margin-top: 1rem;
+    gap: 1rem;
+  }
+
+  .nb-navbar-menu.active {
+    display: flex;
+  }
+
+  .nb-navbar-start,
+  .nb-navbar-end {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}

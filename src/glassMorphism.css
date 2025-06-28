@@ -1,0 +1,121 @@
+/* ===== Root Variables ===== */
+:root {
+  --font-family: 'Inter', 'Segoe UI', sans-serif;
+
+  --bg-color: #f0f4f8;
+  --card-bg: rgba(255, 255, 255, 0.2);
+  --card-blur: blur(12px);
+  --card-border: rgba(255, 255, 255, 0.4);
+
+  --primary-color: #5c6ac4;
+  --primary-hover: #4b5bc1;
+
+  --text-color: #1a1a1a;
+  --text-light: #f0f0f0;
+
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  --radius: 1rem;
+  --transition: 0.3s ease;
+}
+
+/* ===== Global Reset ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: var(--font-family);
+  background: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* ===== Containers ===== */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: var(--card-blur);
+  -webkit-backdrop-filter: var(--card-blur);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* ===== Typography ===== */
+h1, h2, h3, h4 {
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+/* ===== Buttons ===== */
+.button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  font-weight: bold;
+  border: none;
+  border-radius: var(--radius);
+  background-color: var(--primary-color);
+  color: white;
+  cursor: pointer;
+  transition: background-color var(--transition), transform var(--transition);
+  box-shadow: 0 4px 12px rgba(92, 106, 196, 0.3);
+}
+
+.button:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+}
+
+/* ===== Forms ===== */
+input, textarea, select {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  border-radius: var(--radius);
+  border: 1px solid #ccc;
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+/* ===== Utility ===== */
+.text-center {
+  text-align: center;
+}
+
+.image-rounded {
+  border-radius: var(--radius);
+  max-width: 100%;
+  display: block;
+  margin: 1rem auto;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .button {
+    width: 100%;
+    padding: 1rem;
+  }
+}

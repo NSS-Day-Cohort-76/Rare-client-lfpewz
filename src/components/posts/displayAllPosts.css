@@ -1,0 +1,129 @@
+.all-posts-page {
+  padding: 4rem 1rem;
+  background: #ffffff;
+}
+
+.all-posts-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--accent-color);
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: var(--muted-color);
+}
+
+.admin-badge {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  color: var(--accent-color);
+}
+
+.post-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.search-input {
+  flex: 1;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+}
+
+.post-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.post-card-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.post-card {
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  background-color: #ffffff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+}
+
+.post-card.post-pending {
+  background-color: #fff9e6;
+  border-color: #ffcc80;
+}
+
+.post-card.post-deleted {
+  background-color: #ffe5e5;
+  border: 1px dashed #e57373;
+}
+
+.post-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.post-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.post-tag {
+  background-color: var(--accent-color);
+  color: white;
+  font-size: 0.75rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--radius);
+  margin-left: 0.5rem;
+}
+
+.post-tag.warning {
+  background-color: #ff9800;
+}
+
+.post-body {
+  margin-top: 1rem;
+}
+
+.post-author,
+.post-date {
+  font-size: 0.9rem;
+  color: var(--muted-color);
+}
+
+.no-posts-warning {
+  text-align: center;
+  color: #555;
+  font-weight: 500;
+  margin-top: 2rem;
+}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { getCommentsByPostId, deleteComment } from "../../managers/CommentManager"
+import"./commentList.css"
 
 export const CommentList = ({ user }) => {
   const [comments, setComments] = useState([])
@@ -29,7 +30,7 @@ export const CommentList = ({ user }) => {
   return (
     <section className="section">
       <div className="container">
-        <h2 className="title is-4">Comments</h2>
+        {/* <h2 className="title is-4">Comments</h2> */}
 
         <button
           className="button is-primary mb-4"

@@ -1,0 +1,143 @@
+.post-details-section {
+  padding: 3rem 1rem;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.post-details-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.post-details-box {
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.pending-approval {
+  background-color: #fff8e1; /* soft warning background */
+  border-color: #f5c518;
+}
+
+.post-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--accent-color);
+}
+
+.post-status-tag {
+  display: inline-block;
+  background-color: #f5c518;
+  color: #222;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.post-image-wrapper {
+  max-width: 400px;
+  margin: 0 auto 2rem auto;
+  overflow: hidden;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.post-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.post-meta-level {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+  color: var(--muted-color);
+}
+
+.post-meta-item {
+  font-style: italic;
+}
+
+.post-content {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 3rem;
+  white-space: pre-line;
+  color: var(--text-color);
+}
+
+.post-admin-buttons,
+.post-action-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+}
+
+.approve-btn {
+  background-color: #48bb78; /* green */
+  color: white;
+}
+
+.approve-btn:hover {
+  background-color: #38a169;
+}
+
+.deny-btn {
+  background-color: #f56565; /* red */
+  color: white;
+}
+
+.deny-btn:hover {
+  background-color: #c53030;
+}
+
+.edit-btn {
+  background-color: #ed8936; /* orange */
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #dd6b20;
+}
+
+.delete-btn {
+  background-color: #e53e3e; /* dark red */
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #9b2c2c;
+}
+
+.comments-section {
+  max-width: 900px;
+  margin: 3rem auto 0 auto;
+}
+
+.comments-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--accent-color);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}

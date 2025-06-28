@@ -1,0 +1,85 @@
+.home-section {
+  padding: 4rem 1rem;
+}
+
+.home-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--spacing);
+}
+
+.home-heading {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.nb-button {
+  display: block;
+  margin: 0 auto 3rem auto;
+  padding: 0.75rem 1.5rem;
+  background: var(--accent-color);
+  color: var(--bg-color);
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color var(--transition), transform var(--transition);
+}
+
+.nb-button:hover {
+  background-color: #222;
+  transform: translateY(-2px);
+}
+
+.post-card {
+  border: var(--border);
+  border-radius: var(--radius);
+  padding: var(--spacing);
+  margin-top: var(--spacing);
+  transition: box-shadow var(--transition), transform var(--transition);
+  background: #fafafa;
+}
+
+.post-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.post-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.post-image-wrapper {
+  margin-bottom: 1rem;
+}
+
+.post-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.post-meta {
+  font-size: 0.875rem;
+  color: var(--muted-color);
+  margin-bottom: 1rem;
+}
+
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.post-tag {
+  background-color: #eee;
+  color: #333;
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--radius);
+}

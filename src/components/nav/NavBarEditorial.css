@@ -1,0 +1,143 @@
+.navbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--border-color);
+  padding: 1rem var(--spacing);
+  font-family: var(--font-sans);
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.logo-img {
+  height: 40px;
+  border-radius: 4px;
+}
+
+.site-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.burger span {
+  width: 24px;
+  height: 2px;
+  background-color: var(--text-color);
+}
+
+/* Navigation Links */
+.navbar-menu {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.navbar-start,
+.navbar-end {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.nav-item {
+  text-decoration: none;
+  font-weight: 500;
+  color: var(--accent-color);
+  padding: 0.25rem 0.5rem;
+  transition: color var(--transition);
+}
+
+.nav-item:hover {
+  color: var(--muted-color);
+}
+
+/* Buttons */
+.navbar-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: background var(--transition), color var(--transition);
+}
+
+.button.accent {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+.button.accent:hover {
+  background-color: #000;
+}
+
+.button.outline {
+  border: 1px solid var(--accent-color);
+  background: transparent;
+  color: var(--accent-color);
+}
+
+.button.outline:hover {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+.button.text {
+  background: none;
+  color: var(--muted-color);
+  font-weight: 500;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .burger {
+    display: flex;
+  }
+
+  .navbar-menu {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar-start,
+  .navbar-end {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .navbar-buttons {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}

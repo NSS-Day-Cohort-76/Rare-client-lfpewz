@@ -5,6 +5,7 @@ import {
   updateComment,
   getCommentById
 } from "../../managers/CommentManager"
+import"./commentForm.css"
 
 export const CommentForm = () => {
   const [comment, setComment] = useState({

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../managers/AuthManager";
+import"./loginEditorial.css"
 
 export const Login = ({ user, setUser }) => {
   const username = useRef();
@@ -46,40 +47,37 @@ export const Login = ({ user, setUser }) => {
   };
 
   return (
-    <section className="columns is-centered">
-      <form className="column is-two-thirds" onSubmit={handleLogin}>
-        <h1 className="title">Rare Publishing</h1>
-        <p className="subtitle">Please sign in</p>
+    <section className="login-page">
+      <form className="login-form" onSubmit={handleLogin}>
+        <h1 className="form-title">Rare Publishing</h1>
+        <p className="form-subtitle">Please sign in</p>
 
-        <div className="field">
-          <label className="label">Username</label>
-          <div className="control">
-            <input className="input" type="text" ref={username} required />
-          </div>
+        <div className="form-group">
+          <label className="form-label">Username</label>
+          <input className="form-input" type="text" ref={username} required />
         </div>
 
-        <div className="field">
-          <label className="label">Password</label>
-          <div className="control">
-            <input className="input" type="password" ref={password} required />
-          </div>
+        <div className="form-group">
+          <label className="form-label">Password</label>
+          <input
+            className="form-input"
+            type="password"
+            ref={password}
+            required
+          />
         </div>
 
-        <div className="field is-grouped">
-          <div className="control">
-            <button className="button is-link" type="submit">
-              Submit
-            </button>
-          </div>
-          <div className="control">
-            <Link to="/register" className="button is-light">
-              Cancel
-            </Link>
-          </div>
+        <div className="form-actions">
+          <button className="button accent" type="submit">
+            Submit
+          </button>
+          <Link to="/register" className="button outline">
+            Cancel
+          </Link>
         </div>
 
         {isUnsuccessful && (
-          <p className="help is-danger">Username or password not valid</p>
+          <p className="form-error">Username or password not valid</p>
         )}
       </form>
     </section>

@@ -3,6 +3,7 @@ import { useParams, useNavigate, useOutletContext } from "react-router-dom";
 import { deletePost } from "../../managers/PostManager.js";
 import { CommentList } from "../comments/CommentList";
 import { ReactionSelector } from "../reactions/ReactionSelector.jsx";
+import"./postDetails.css"
 
 export const PostDetails = () => {
   const { postId } = useParams();
@@ -102,66 +103,55 @@ export const PostDetails = () => {
     : "Unknown";
 
   return (
-    <section className="section">
-      <div className="container">
+    <section className="post-details-section">
+      <div className="post-details-container">
         <div
-          className={`box ${
-            post.approved === 0 ? "has-background-warning-light" : ""
+          className={`post-details-box ${
+            post.approved === 0 ? "pending-approval" : ""
           }`}
         >
-          <h1 className="title is-3 mb-4">{post.title}</h1>
+          <h1 className="post-title">{post.title}</h1>
 
           {post.approved === 0 && (
-            <span className="tag is-warning is-light is-rounded mb-2">
-              ⏳ Pending Approval
-            </span>
+            <span className="post-status-tag">⏳ Pending Approval</span>
           )}
 
           {post.image_url && (
-            <figure
-              className="image mb-5"
-              style={{ maxWidth: "400px", margin: "0 auto" }}
-            >
+            <figure className="post-image-wrapper">
               <img
                 src={post.image_url}
                 alt={post.title}
-                style={{ objectFit: "cover", width: "100%" }}
+                className="post-image"
               />
             </figure>
           )}
 
-          <div className="level is-mobile mb-4">
-            <div className="level-left">
-              <div className="level-item">
-                <p className="is-size-6 has-text-grey">
-                  <strong>By:</strong> {post.author}
-                </p>
-              </div>
-              <div className="level-item">
-                <p className="is-size-6 has-text-grey">
-                  <strong>Published:</strong> {formattedDate}
-                </p>
-              </div>
-            </div>
+          <div className="post-meta-level">
+            <p className="post-meta-item">
+              <strong>By:</strong> {post.author}
+            </p>
+            <p className="post-meta-item">
+              <strong>Published:</strong> {formattedDate}
+            </p>
           </div>
 
           <ReactionSelector post={post} user={user} setPost={setPost} />
 
-          <div className="content mb-5" style={{ whiteSpace: "pre-line" }}>
+          <article className="post-content">
             <p>{post.content}</p>
-          </div>
+          </article>
 
           {/* Admin Approval Buttons */}
           {user?.isStaff && post.approved === 0 && (
-            <div className="buttons mb-4">
+            <div className="post-admin-buttons">
               <button
-                className="button is-success"
+                className="btn approve-btn"
                 onClick={() => handleApprovalChange(1)}
               >
                 ✅ Approve
               </button>
               <button
-                className="button is-danger"
+                className="btn deny-btn"
                 onClick={() => handleApprovalChange(-1)}
               >
                 ❌ Deny
@@ -169,24 +159,21 @@ export const PostDetails = () => {
             </div>
           )}
 
-          <div className="buttons">
-            <button className="button is-warning is-medium" onClick={goToEdit}>
+          <div className="post-action-buttons">
+            <button className="btn edit-btn" onClick={goToEdit}>
               Edit
             </button>
-            <button
-              className="button is-danger is-medium"
-              onClick={handleDelete}
-            >
+            <button className="btn delete-btn" onClick={handleDelete}>
               Delete
             </button>
           </div>
         </div>
 
         {/* Comments Section */}
-        <div className="section">
-          <h2 className="title is-4">Comments</h2>
+        <section className="comments-section">
+          <h2 className="comments-title">Comments</h2>
           <CommentList user={user} postId={post.id} />
-        </div>
+        </section>
       </div>
     </section>
   );

@@ -1,0 +1,38 @@
+.box.has-shadow {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+  transition: box-shadow 0.2s ease;
+}
+
+.box.has-shadow:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Ensure buttons inside .level have visible text */
+.level .button {
+  transition: background-color 0.2s ease;
+  color: #faf4f4; /* dark text */
+}
+
+/* Prevent .is-clickable affecting buttons inside */
+.is-clickable:hover {
+  text-decoration: underline;
+  color: #3273dc;
+}
+
+/* Override hover only on non-button elements */
+.is-clickable:hover:not(button) {
+  text-decoration: underline;
+  color: #3273dc;
+}
+
+/* For buttons inside .level to have normal cursor and no underline on hover */
+.level .button {
+  cursor: pointer;
+}
+
+.level .button:hover {
+  text-decoration: none;
+  color: #fffcfc;
+  background-color: #030303; /* subtle hover bg */
+}

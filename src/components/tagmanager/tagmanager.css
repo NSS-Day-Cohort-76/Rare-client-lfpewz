@@ -1,7 +1,90 @@
- .container {
-    display: flex;
- }
+.tag-manager-container {
+  max-width: 640px;
+  margin: 3rem auto;
+}
 
- .header {
-    text-align: center;
- }
+/* Header */
+.tag-manager-header {
+  margin-bottom: 2rem;
+}
+
+/* Tag Items */
+.tag-list .tag-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  margin-bottom: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.tag-list .tag-item:hover {
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
+
+.tag-label {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.tag-actions button {
+  margin-left: 0.5rem;
+}
+
+/* Create Form */
+.tag-create-form .input {
+  background-color: #fff;
+  border: 1px solid #dbdbdb;
+}
+
+.tag-create-form .input:focus {
+  border-color: #3273dc;
+  box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25);
+}
+
+.tag-create-form .button.is-primary {
+  background-color: #3273dc;
+  color: white;
+  border-color: transparent;
+}
+
+.tag-create-form .button.is-primary:hover {
+  background-color: #276cda;
+}
+
+/* Modal Cleanup */
+.modal-card {
+  background-color: #fff;
+  color: #363636;
+}
+
+.modal-card-head,
+.modal-card-foot {
+  background-color: #f5f5f5;
+}
+
+.modal-card-body .input {
+  background-color: #fff;
+  border: 1px solid #dbdbdb;
+}
+
+.modal-card-body .input:focus {
+  border-color: #3273dc;
+  box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25);
+}
+.tag-actions .button .icon i {
+  color: #363636; /* Bulma dark grey */
+}
+.tag-actions .button.is-white {
+  background-color: white !important;
+  border: 1px solid #060000;
+  color: #111 !important;
+}
+
+.tag-actions .button.is-white .icon i {
+  color: #111 !important;
+}

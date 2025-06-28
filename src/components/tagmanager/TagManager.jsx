@@ -3,6 +3,7 @@ import { GetAllTags } from "../../services/getAllTags.jsx";
 import { CreateNewTag } from "../../services/createNewtag.jsx";
 import { DeleteTag } from "../../services/DeleteTagService.jsx";
 import { useNavigate } from "react-router-dom";
+import "./tagmanager.css";
 
 export const TagManager = () => {
   const [tag, setTag] = useState("");
@@ -57,10 +58,15 @@ export const TagManager = () => {
   };
 
   return (
-    <article className="container" style={{ maxWidth: 600, margin: "2rem auto" }}>
-      <header className="title is-3 has-text-centered mb-6">Tag Manager</header>
+    <article className="tag-manager-container">
+      <header className="tag-manager-header">
+        <h1 className="title is-3 has-text-centered">📝 Tag Manager</h1>
+        <p className="subtitle is-6 has-text-centered has-text-grey">
+          Create, edit, and manage your tags.
+        </p>
+      </header>
 
-      <section className="box mb-6">
+      <section className="box tag-list">
         {allTags.length === 0 ? (
           <p className="has-text-grey has-text-centered">No tags available.</p>
         ) : (
@@ -70,29 +76,32 @@ export const TagManager = () => {
             .map((t) => (
               <div
                 key={t.id}
-                className="level is-mobile mb-3 p-3 box has-shadow is-clickable"
-                style={{ borderRadius: "8px" }}
+                className="tag-item box is-clickable"
+                onClick={() => handleEditTag(t)}
               >
-                <div className="level-left">
-                  <p className="is-size-5">{t.label}</p>
-                </div>
-                <div className="level-right">
+                <div className="tag-label">{t.label}</div>
+                <div className="tag-actions">
                   <button
-                    className="button is-info is-medium mr-3"
-                    aria-label={`Edit tag ${t.label}`}
-                    onClick={() => handleEditTag(t)} // pass full tag object
+                    className="button is-white is-small has-text-black"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleEditTag(t);
+                    }}
                   >
-                    <span className="icon">
+                    <span className="icon is-small">
                       <i className="fas fa-edit"></i>
                     </span>
                     <span>Edit</span>
                   </button>
+
                   <button
-                    className="button is-danger is-medium"
-                    aria-label={`Delete tag ${t.label}`}
-                    onClick={() => handleDeleteTag(t.id)}
+                    className="button is-white is-small has-text-black"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDeleteTag(t.id);
+                    }}
                   >
-                    <span className="icon">
+                    <span className="icon is-small">
                       <i className="fas fa-trash-alt"></i>
                     </span>
                     <span>Delete</span>
@@ -103,18 +112,16 @@ export const TagManager = () => {
         )}
       </section>
 
-      <section className="box">
+      <section className="box tag-create-form">
         <form onSubmit={handleSubmitTag}>
-          <label className="label" htmlFor="new-tag-input">
-            Create New Tag
-          </label>
+          <label className="label">Create New Tag</label>
           <div className="field has-addons">
             <div className="control is-expanded">
               <input
                 id="new-tag-input"
                 className="input"
                 type="text"
-                placeholder="Add tag"
+                placeholder="e.g., tech, food, art"
                 value={tag}
                 onChange={(e) => setTag(e.target.value)}
                 required
@@ -122,10 +129,7 @@ export const TagManager = () => {
             </div>
             <div className="control">
               <button type="submit" className="button is-primary">
-                <span className="icon">
-                  <i className="fas fa-plus"></i>
-                </span>
-                <span>Create</span>
+                <i className="fas fa-plus mr-1"></i> Create
               </button>
             </div>
           </div>
@@ -154,13 +158,11 @@ export const TagManager = () => {
                 value={editLabel}
                 onChange={(e) => setEditLabel(e.target.value)}
                 placeholder="Edit tag name"
+                autoFocus
               />
             </section>
             <footer className="modal-card-foot">
-              <button
-                className="button is-success"
-                onClick={handleUpdateTag}
-              >
+              <button className="button is-success" onClick={handleUpdateTag}>
                 Save
               </button>
               <button className="button" onClick={() => setEditTag(null)}>

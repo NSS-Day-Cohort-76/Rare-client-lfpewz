@@ -1,0 +1,111 @@
+/* admindashboard.css */
+
+/* Container tweaks */
+.section {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+}
+
+/* Title */
+.title {
+  font-weight: 700;
+  color: #363636;
+  margin-bottom: 1.5rem;
+}
+
+/* Individual post box spacing */
+.box {
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  transition: box-shadow 0.2s ease-in-out;
+  background-color: #fff;
+}
+
+/* Box hover effect */
+.box:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Post content truncation */
+.box p {
+  color: #4a4a4a;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Truncate content paragraphs */
+.box p:first-of-type {
+  max-height: 4.5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Author text styling */
+.box p strong {
+  color: #363636;
+}
+
+/* Buttons container */
+.buttons {
+  margin-top: 1rem;
+}
+
+/* Small button tweaks */
+.button.is-small {
+  font-size: 0.85rem;
+  padding: 0.3rem 0.75rem;
+}
+
+/* Approve button style */
+.button.is-success {
+  background-color: #48c774;
+  border-color: #48c774;
+  color: #fff;
+}
+
+/* Approve hover */
+.button.is-success:hover {
+  background-color: #3ec46d;
+  border-color: #3ec46d;
+}
+
+/* Warning button style */
+.button.is-warning {
+  background-color: #ffdd57;
+  border-color: #ffdd57;
+  color: #363636;
+}
+
+/* Warning hover */
+.button.is-warning:hover {
+  background-color: #f3d342;
+  border-color: #f3d342;
+}
+
+/* Danger button style */
+.button.is-danger {
+  background-color: #f14668;
+  border-color: #f14668;
+  color: #fff;
+}
+
+/* Danger hover */
+.button.is-danger:hover {
+  background-color: #da2c4d;
+  border-color: #da2c4d;
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  .buttons {
+    display: flex;
+    flex-direction: column;
+  }
+  .buttons .button {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}

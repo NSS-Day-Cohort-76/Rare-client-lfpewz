@@ -1,22 +1,23 @@
-import { useRef, useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import { registerUser } from "../../managers/AuthManager"
+import { useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { registerUser } from "../../managers/AuthManager";
+import"./registerEditorial.css"
 
 export const Register = ({ setUser }) => {
-  const firstName = useRef()
-  const lastName = useRef()
-  const email = useRef()
-  const username = useRef()
-  const bio = useRef()
-  const password = useRef()
-  const verifyPassword = useRef()
-  const passwordDialog = useRef()
-  const navigate = useNavigate()
+  const firstName = useRef();
+  const lastName = useRef();
+  const email = useRef();
+  const username = useRef();
+  const bio = useRef();
+  const password = useRef();
+  const verifyPassword = useRef();
+  const passwordDialog = useRef();
+  const navigate = useNavigate();
 
-  const [registerError, setRegisterError] = useState("") // 🔥 for backend error messages
+  const [registerError, setRegisterError] = useState(""); // 🔥 for backend error messages
 
   const handleRegister = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (password.current.value === verifyPassword.current.value) {
       const newUser = {
@@ -25,112 +26,110 @@ export const Register = ({ setUser }) => {
         last_name: lastName.current.value,
         email: email.current.value,
         password: password.current.value,
-        bio: bio.current.value
-      }
+        bio: bio.current.value,
+      };
 
       registerUser(newUser)
-        .then(res => {
+        .then((res) => {
           if ("valid" in res && res.valid) {
             const userObj = {
-            id: res.user_id,    // match backend response
-            isStaff: res.is_staff,
-            valid: true
-          }
-          setUser(userObj)
-            navigate("/")
+              id: res.user_id, // match backend response
+              isStaff: res.is_staff,
+              valid: true,
+            };
+            setUser(userObj);
+            navigate("/");
           }
         })
-        .catch(err => {
+        .catch((err) => {
           // 👇 Show backend error (like duplicate username/email)
           if (err.error) {
-            setRegisterError(err.error)
+            setRegisterError(err.error);
           } else {
-            setRegisterError("Something went wrong. Please try again.")
+            setRegisterError("Something went wrong. Please try again.");
           }
-        })
+        });
     } else {
-      passwordDialog.current.showModal()
+      passwordDialog.current.showModal();
     }
-  }
+  };
 
   return (
-    <section className="columns is-centered">
-      <form className="column is-two-thirds" onSubmit={handleRegister}>
-        <h1 className="title">Rare Publishing</h1>
-        <p className="subtitle">Create an account</p>
+    <section className="register-page">
+      <form className="register-form" onSubmit={handleRegister}>
+        <h1 className="form-title">Rare Publishing</h1>
+        <p className="form-subtitle">Create an account</p>
 
-        {/* 🔥 Display backend error if any */}
-        {registerError && (
-          <p className="help is-danger">{registerError}</p>
-        )}
+        {registerError && <p className="form-error">{registerError}</p>}
 
-        <div className="field">
-          <label className="label">First Name</label>
-          <div className="control">
-            <input className="input" type="text" ref={firstName} />
-          </div>
+        <div className="form-group">
+          <label className="form-label">First Name</label>
+          <input className="form-input" type="text" ref={firstName} />
         </div>
 
-        <div className="field">
-          <label className="label">Last Name</label>
-          <div className="control">
-            <input className="input" type="text" ref={lastName} />
-          </div>
+        <div className="form-group">
+          <label className="form-label">Last Name</label>
+          <input className="form-input" type="text" ref={lastName} />
         </div>
 
-        <div className="field">
-          <label className="label">Username</label>
-          <div className="control">
-            <input className="input" type="text" ref={username} />
-          </div>
+        <div className="form-group">
+          <label className="form-label">Username</label>
+          <input className="form-input" type="text" ref={username} />
         </div>
 
-        <div className="field">
-          <label className="label">Email</label>
-          <div className="control">
-            <input className="input" type="email" ref={email} />
-          </div>
+        <div className="form-group">
+          <label className="form-label">Email</label>
+          <input className="form-input" type="email" ref={email} />
         </div>
 
-        <div className="field">
-          <label className="label">Password</label>
-          <div className="field-body">
-            <div className="field">
-              <p className="control is-expanded">
-                <input className="input" type="password" placeholder="Password" ref={password} />
-              </p>
-            </div>
-
-            <div className="field">
-              <p className="control is-expanded">
-                <input className="input" type="password" placeholder="Verify Password" ref={verifyPassword} />
-              </p>
-            </div>
-          </div>
+        <div className="form-group">
+          <label className="form-label">Password</label>
+          <input
+            className="form-input"
+            type="password"
+            placeholder="Password"
+            ref={password}
+          />
         </div>
 
-        <div className="field">
-          <label className="label">Bio</label>
-          <div className="control">
-            <textarea className="textarea" placeholder="Tell us about yourself..." ref={bio}></textarea>
-          </div>
+        <div className="form-group">
+          <label className="form-label">Verify Password</label>
+          <input
+            className="form-input"
+            type="password"
+            placeholder="Verify Password"
+            ref={verifyPassword}
+          />
         </div>
 
-        <div className="field is-grouped">
-          <div className="control">
-            <button className="button is-link" type="submit">Submit</button>
-          </div>
-          <div className="control">
-            <Link to="/login" className="button is-link is-light">Cancel</Link>
-          </div>
+        <div className="form-group">
+          <label className="form-label">Bio</label>
+          <textarea
+            className="form-textarea"
+            placeholder="Tell us about yourself..."
+            ref={bio}
+          ></textarea>
         </div>
 
-        {/* Hidden dialog for password mismatch */}
-        <dialog className="dialog dialog--auth" ref={passwordDialog}>
+        <div className="form-actions">
+          <button className="button accent" type="submit">
+            Submit
+          </button>
+          <Link to="/login" className="button outline">
+            Cancel
+          </Link>
+        </div>
+
+        <dialog className="dialog" ref={passwordDialog}>
           <div>Password fields do not match</div>
-          <button className="button" onClick={() => passwordDialog.current.close()}>Close</button>
+          <button
+            className="button"
+            onClick={() => passwordDialog.current.close()}
+          >
+            Close
+          </button>
         </dialog>
       </form>
     </section>
-  )
-}
+  );
+};

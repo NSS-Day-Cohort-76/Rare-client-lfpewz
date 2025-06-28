@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getAllPosts } from "../../managers/PostManager.js";
+import"./displayAllPosts.css"
 
 export const DisplayAllPosts = ({ user }) => {
   const [allPosts, setAllPosts] = useState([]);
@@ -30,133 +31,94 @@ export const DisplayAllPosts = ({ user }) => {
   );
 
   return (
-    <section className="section">
-      <div className="container">
-        {/* Hero Heading */}
-        <div className="mb-6">
-          <h1 className="title is-2 has-text-centered">All Posts</h1>
-          <p className="subtitle is-5 has-text-centered has-text-grey-dark">
+    <section className="all-posts-page">
+      <div className="all-posts-container">
+        <div className="section-header">
+          <h1 className="section-title">All Posts</h1>
+          <p className="section-subtitle">
             Browse recent posts or create a new one.
           </p>
         </div>
 
-        {user.isStaff && (
-          <div className="has-text-centered mb-4">
-            <span className="tag is-success is-light is-medium is-rounded">
-              🛡️ Viewing as <strong className="ml-1">Admin</strong>
+        {user?.isStaff && (
+          <div className="admin-badge">
+            <span>
+              🛡️ Viewing as <strong>Admin</strong>
             </span>
           </div>
         )}
 
-        {/* Search + Create Post */}
-        <div
-          className="box mb-6"
-          style={{ border: "1px solid #dbdbdb", backgroundColor: "#f9f9f9" }}
-        >
-          <div className="columns is-vcentered is-variable is-4">
-            <div className="column is-9">
-              <div className="field has-addons">
-                <div className="control is-expanded">
-                  <input
-                    className="input is-medium has-shadow"
-                    style={{
-                      backgroundColor: "#fff",
-                      border: "1px solid #b5b5b5",
-                      boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-                    }}
-                    type="text"
-                    placeholder="Search posts by title..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                  />
-                </div>
-                {searchTerm && (
-                  <div className="control">
-                    <button
-                      className="button is-medium is-light"
-                      onClick={() => setSearchTerm("")}
-                    >
-                      Clear
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-            <div className="column is-3 has-text-right">
-              <button
-                className="button is-primary is-medium is-rounded"
-                onClick={() => navigate("/createpost")}
-              >
-                <span className="icon">
-                  <i className="fas fa-plus"></i>
-                </span>
-                <span>Create Post</span>
-              </button>
-            </div>
-          </div>
+        {/* Search & Create Controls */}
+        <div className="post-controls">
+          <input
+            className="search-input"
+            type="text"
+            placeholder="Search posts by title..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          {searchTerm && (
+            <button
+              className="button small outline"
+              onClick={() => setSearchTerm("")}
+            >
+              Clear
+            </button>
+          )}
+          <button
+            className="button accent"
+            onClick={() => navigate("/createpost")}
+          >
+            ➕ Create Post
+          </button>
         </div>
 
         {/* Posts Grid */}
         {filteredPosts.length > 0 ? (
-          <div className="columns is-multiline">
+          <div className="post-grid">
             {filteredPosts.map((post) => (
-              <div
-                key={post.id}
-                className="column is-full-mobile is-half-tablet is-one-third-desktop"
-              >
+              <div key={post.id} className="post-card-wrapper">
                 {post.approved === -1 ? (
-                  <div className="card has-background-danger-light has-text-centered">
-                    <div className="card-content">
-                      <p className="notification is-danger is-light">
-                        This post was deleted by the admins.
-                      </p>
-                      <p className="has-text-grey-dark mt-2">
-                        <strong>Author:</strong>{" "}
-                        <Link to={`/users/${post.user.id}`}>
-                          {post.user.firstName} {post.user.lastName}
-                        </Link>
-                      </p>
-                    </div>
+                  <div className="post-card post-deleted">
+                    <p className="post-note">
+                      This post was deleted by the admins.
+                    </p>
+                    <p className="post-meta">
+                      <strong>Author:</strong>{" "}
+                      <Link to={`/users/${post.user.id}`}>
+                        {post.user.firstName} {post.user.lastName}
+                      </Link>
+                    </p>
                   </div>
                 ) : (
-                  <Link
-                    to={`/posts/${post.id}`}
-                    style={{ textDecoration: "none", color: "inherit" }}
-                  >
+                  <Link to={`/posts/${post.id}`} className="post-card-link">
                     <div
-                      className={`card is-hoverable has-shadow ${
-                        post.approved === 0 ? "has-background-warning-light" : ""
+                      className={`post-card ${
+                        post.approved === 0 ? "post-pending" : ""
                       }`}
                     >
-                      <header className="card-header">
-                        <p className="card-header-title has-text-weight-semibold">
-                          {post.title}
-                          {post.approved === 0 && (
-                            <span className="tag is-warning is-light is-rounded ml-3">
-                              ⏳ Pending Approval
-                            </span>
-                          )}
+                      <div className="post-header">
+                        <h2 className="post-title">{post.title}</h2>
+                        {post.approved === 0 && (
+                          <span className="post-tag warning">
+                            ⏳ Pending Approval
+                          </span>
+                        )}
+                        <span className="post-tag">{post.category.label}</span>
+                      </div>
+                      <div className="post-body">
+                        <p className="post-author">
+                          <strong>Author:</strong> {post.user.firstName}{" "}
+                          {post.user.lastName}
                         </p>
-                        <span
-                          className="tag is-info is-light card-header-icon"
-                          aria-label="category"
-                        >
-                          {post.category.label}
-                        </span>
-                      </header>
-                      <div className="card-content">
-                        <div className="content">
-                          <p className="mb-2">
-                            <strong>Author:</strong> {post.user.firstName}{" "}
-                            {post.user.lastName}
-                          </p>
-                          <p className="is-size-7 has-text-grey">
-                            <em>
-                              Published on:{" "}
-                              {new Date(post.publication_date).toLocaleDateString()}
-                            </em>
-                          </p>
-                        </div>
+                        <p className="post-date">
+                          <em>
+                            Published on:{" "}
+                            {new Date(
+                              post.publication_date
+                            ).toLocaleDateString()}
+                          </em>
+                        </p>
                       </div>
                     </div>
                   </Link>
@@ -165,9 +127,7 @@ export const DisplayAllPosts = ({ user }) => {
             ))}
           </div>
         ) : (
-          <p className="notification is-warning has-text-centered">
-            No posts found.
-          </p>
+          <p className="no-posts-warning">No posts found.</p>
         )}
       </div>
     </section>

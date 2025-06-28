@@ -1,0 +1,174 @@
+/* Root variables for colors and glassmorphism */
+:root {
+  --bg-color: #f0f4f8;
+  --glass-bg: rgba(255, 255, 255, 0.25);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --glass-blur: blur(12px);
+
+  --primary-color: #5c6ac4;
+  --primary-hover: #4b5bc1;
+
+  --text-color: #1a1a1a;
+  --tag-bg: rgba(92, 106, 196, 0.15);
+  --tag-text: #3a3f7a;
+
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --radius: 1rem;
+  --transition: 0.3s ease;
+}
+
+/* Section and container */
+.home-section {
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  padding: 3rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.home-container {
+  max-width: 960px;
+  width: 100%;
+  padding: 1rem 2rem;
+}
+
+/* Heading */
+.home-heading {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-color);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Glassmorphic post card */
+.post-card {
+  display: block;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2rem;
+  margin-top: 2rem;
+  text-decoration: none;
+  color: var(--text-color);
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.post-card:hover {
+  box-shadow: 0 12px 40px rgba(92, 106, 196, 0.3);
+  transform: translateY(-6px);
+}
+
+/* Post title */
+.post-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+/* Image wrapper for aspect ratio and styling */
+.post-image-wrapper {
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius);
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.post-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  object-fit: cover;
+}
+
+/* Meta info */
+.post-meta {
+  font-size: 0.9rem;
+  color: #444;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+/* Tags container */
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Individual tag style */
+.post-tag {
+  background-color: var(--tag-bg);
+  color: var(--tag-text);
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.75rem;
+  user-select: none;
+}
+
+/* Button styling with pulse animation */
+.nb-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.75rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: var(--radius);
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(92, 106, 196, 0.3);
+  transition: background-color var(--transition), transform var(--transition);
+  display: inline-block;
+  margin: 0 auto 2rem;
+  user-select: none;
+  text-align: center;
+}
+
+.nb-button:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-3px);
+}
+
+/* Pulse animation for the create post button */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(92, 106, 196, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(92, 106, 196, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(92, 106, 196, 0);
+  }
+}
+
+.pulse {
+  animation: pulse 2.5s infinite;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .home-container {
+    padding: 1rem;
+  }
+
+  .home-heading {
+    font-size: 1.5rem;
+  }
+
+  .post-title {
+    font-size: 1.3rem;
+  }
+
+  .nb-button {
+    width: 100%;
+    font-size: 1rem;
+  }
+}

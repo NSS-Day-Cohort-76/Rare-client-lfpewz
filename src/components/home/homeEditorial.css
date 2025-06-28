@@ -1,0 +1,96 @@
+.home-section {
+  padding: 4rem 1rem;
+  background-color: #ffffff;
+}
+
+.home-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.home-heading {
+  font-size: 2.25rem;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 3rem;
+  color: var(--accent-color);
+}
+
+/* Create Post Button */
+.nb-button {
+  display: block;
+  margin: 0 auto 3rem auto;
+  background: var(--accent-color);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.nb-button:hover {
+  background: #000;
+  transform: translateY(-2px);
+}
+
+/* Post Card */
+.post-card {
+  background-color: #f9f9f9;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 2rem;
+  margin-top: 2rem;
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.post-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.post-title {
+  font-size: 1.75rem;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--accent-color);
+}
+
+.post-image-wrapper {
+  margin-bottom: 1.5rem;
+}
+
+.post-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+.post-meta {
+  font-size: 0.95rem;
+  color: var(--muted-color);
+  margin-bottom: 1.25rem;
+}
+
+.post-tags {
+  font-size: 0.85rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.post-tag {
+  background: #eee;
+  color: #333;
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--radius);
+  font-family: var(--font-sans);
+}

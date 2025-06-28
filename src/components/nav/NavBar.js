@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./NavBar.css";
+import "./NavBarEditorial.css";
 import Logo from "./rare.jpeg";
 
 export const NavBar = ({ user, setUser }) => {
@@ -12,39 +12,33 @@ export const NavBar = ({ user, setUser }) => {
   );
 
   const showMobileNavbar = () => {
-    hamburger.current.classList.toggle("is-active");
-    navbar.current.classList.toggle("is-active");
+    hamburger.current.classList.toggle("active");
+    navbar.current.classList.toggle("active");
   };
 
   const toggleDarkMode = () => {
     document.body.classList.toggle("dark-mode");
     setDarkMode(!darkMode);
   };
-  console.log("👤 NavBar user state:", user);
 
   return (
-    <nav
-      className="navbar is-success mb-3"
-      role="navigation"
-      aria-label="main navigation"
-    >
+    <nav className="navbar">
       <div className="navbar-brand">
-        <a className="navbar-item" href="/">
-          <img src={Logo} height="3rem" alt="Rare Logo" />
-          <h1 className="title is-4 ml-2">Rare Publishing</h1>
+        <a className="logo" href="/">
+          <img src={Logo} alt="Rare Logo" className="logo-img" />
+          <h1 className="site-title">Rare Publishing</h1>
         </a>
 
         <button
-          role="button"
-          className="navbar-burger"
+          className="burger"
           aria-label="menu"
           aria-expanded="false"
           onClick={showMobileNavbar}
           ref={hamburger}
         >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
       </div>
 
@@ -52,60 +46,53 @@ export const NavBar = ({ user, setUser }) => {
         <div className="navbar-start">
           {user && (
             <>
-              <Link to="/allposts" className="navbar-item">
+              <Link to="/allposts" className="nav-item">
                 All Posts
               </Link>
-              <Link to="/myposts" className="navbar-item">
+              <Link to="/myposts" className="nav-item">
                 My Posts
               </Link>
-              <Link to="/categorymanager" className="navbar-item">
+              <Link to="/categorymanager" className="nav-item">
                 Category Manager
               </Link>
-              <Link to="/tagmanager" className="navbar-item">
+              <Link to="/tagmanager" className="nav-item">
                 Tag Manager
               </Link>
             </>
           )}
           {user?.isStaff && (
-            <Link to="/user-profiles" className="navbar-item">
+            <Link to="/user-profiles" className="nav-item">
               User Profiles
             </Link>
           )}
         </div>
 
         <div className="navbar-end">
-          <div className="navbar-item">
-            <div className="buttons are-small">
-              <button
-                className={`button ${
-                  darkMode ? "is-light has-text-dark" : "is-dark has-text-light"
-                }`}
-                onClick={toggleDarkMode}
-              >
-                {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
-              </button>
+          <div className="navbar-buttons">
+            <button className="button text" onClick={toggleDarkMode}>
+              {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
+            </button>
 
-              {user?.id ? (
-                <button
-                  className="button is-outlined"
-                  onClick={() => {
-                    setUser(null); // not ""
-                    navigate("/");
-                  }}
-                >
-                  Logout
-                </button>
-              ) : (
-                <>
-                  <Link to="/register" className="button is-link">
-                    Register
-                  </Link>
-                  <Link to="/login" className="button is-outlined">
-                    Login
-                  </Link>
-                </>
-              )}
-            </div>
+            {user?.id ? (
+              <button
+                className="button outline"
+                onClick={() => {
+                  setUser(null);
+                  navigate("/");
+                }}
+              >
+                Logout
+              </button>
+            ) : (
+              <>
+                <Link to="/register" className="button accent">
+                  Register
+                </Link>
+                <Link to="/login" className="button outline">
+                  Login
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>
